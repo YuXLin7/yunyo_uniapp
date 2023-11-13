@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/404/404",
+    "pages/attraction/index",
+    "pages/hotel/index",
+    "pages/me/index",
+    "pages/login/login",
+    "pages/login/otherLogin",
+    "pages/register/register",
+    "pages/setting/setting",
+    "pages/visitorInfor/visitorInfor"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#28bb9c",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/home_2.png",
+        "selectedIconPath": "static/home_1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/attraction/index",
+        "iconPath": "static/attraction_2.png",
+        "selectedIconPath": "static/attraction_1.png",
+        "text": "景区"
+      },
+      {
+        "pagePath": "pages/hotel/index",
+        "iconPath": "static/hotel_2.png",
+        "selectedIconPath": "static/hotel_1.png",
+        "text": "住宿"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "iconPath": "static/me_2.png",
+        "selectedIconPath": "static/me_1.png",
+        "text": "我"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

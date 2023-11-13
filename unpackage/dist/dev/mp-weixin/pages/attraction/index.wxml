@@ -1,0 +1,1 @@
+<view><custom-navbar bind:safeHeight="__e" vue-id="53c139c3-1" data-event-opts="{{[['^safeHeight',[['getHeight']]]]}}" bind:__l="__l"></custom-navbar><view style="{{'margin-top:'+(height+'px')+';'}}"><text>这是景点模块</text></view></view>
