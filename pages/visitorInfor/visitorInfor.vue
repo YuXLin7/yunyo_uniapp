@@ -1,4 +1,4 @@
-<template>
+ <template>
 	<view class="viewport">
 		<!-- 游客信息列表 -->
 		<scroll-view class="scroll-view" scroll-y>
@@ -13,7 +13,8 @@
 								<text v-if="true" class="badge">默认</text>
 							</view>
 							<view class="locate">3607**********8216</view>
-							<navigator class="edit" hover-class="none" :url="`/pagesMember/address-form/address-form?id=1`">修改</navigator>
+							<!-- <navigator class="edit" hover-class="none" :url="`/pages/visitorInfor/addVisitor?id=1`">修改</navigator> -->
+							<navigator class="edit" hover-class="none" url="/pages/visitorInfor/addVisitor">修改</navigator>
 						</view>
 					</view>
 					<!-- 游客信息项 -->
@@ -24,7 +25,7 @@
 								<text class="contact">手机号码</text>
 							</view>
 							<view class="locate">身份证号</view>
-							<navigator class="edit" hover-class="none" :url="`/pagesMember/address-form/address-form?id=1`">修改</navigator>
+							<navigator class="edit" hover-class="none" url="pages/visitorInfor/addVisitor">修改</navigator>
 						</view>
 					</view>
 				</view>
@@ -32,7 +33,7 @@
 			<view v-else class="blank">暂无游客信息</view>
 		</scroll-view>
 		<!-- 添加按钮 -->
-		<view class="add-btn"><navigator hover-class="none" url="/pagesMember/address-form/address-form">新建游客</navigator></view>
+		<view class="add-btn"><navigator hover-class="none" url="/pages/visitorInfor/addVisitor">新建游客</navigator></view>
 	</view>
 </template>
 

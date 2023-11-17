@@ -17,7 +17,7 @@ export default {
 	mounted() {
 		this.systemWidth = uni.getSystemInfoSync().windowWidth
 		this.safeAreaInsets = uni.getSystemInfoSync().safeArea.top
-		this.$emit('safe-height', this.safeAreaInsets + 110)
+		this.$emit('safe-height', this.safeAreaInsets + this.systemWidth * 0.35)
 	}
 };
 </script>
@@ -29,7 +29,7 @@ export default {
 	top: 0;
 	left: 0;
 }
-	
+
 .top {
 	position: absolute;
 	top: 0;

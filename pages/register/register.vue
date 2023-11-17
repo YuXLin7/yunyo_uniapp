@@ -1,11 +1,11 @@
 <template>
 	<view>
-		<custom-navbar @safe-height="getHeight"></custom-navbar>
+		<!-- <custom-navbar @safe-height="getHeight"></custom-navbar> -->
 		<form catchsubmit="formSubmit" catchreset="formReset">
-			<view class="input-list" :style="{ paddingTop: height + 'px' }">
+			<view class="input-list">
 				<view class="input-item">
 					<text class="input-item-label">用户名</text>
-					<view class="input-item-content"><input type="text" v-model="username" placeholder="请输入您的用户名" /></view>
+					<view class="input-item-content"><input type="text" v-model="nickname" placeholder="请输入您的用户名" /></view>
 				</view>
 
 				<view class="input-item">
@@ -26,12 +26,14 @@
 
 <script>
 import CustomNavbar from '../../components/CustomNavbar.vue';
+import { useri } from '../../util/user.js';
 
 export default {
 	data() {
 		return {
 			height: '',
-			username: '',
+			canRegister: false,
+			nickname: '',
 			password: '',
 			surePwd: '',
 			errMsg: ''
@@ -42,19 +44,29 @@ export default {
 	},
 	methods: {
 		getHeight(safeAreaInsets) {
-			this.height = safeAreaInsets
+			this.height = safeAreaInsets;
 		},
 		isPasswordSame() {
 			if (!(this.password == this.surePwd) && !(this.surePwd == null)) {
 				this.errMsg = '两次密码不一致！';
 			} else {
 				this.errMsg = '';
+				this.canRegister = true;
 			}
 		},
-		register() {
-			uni.reLaunch({
-				url: '/pages/index/index'
-			});
+		async register() {
+			if (this.canRegister) {
+				const data = {
+					nickname: this.nickname,
+					password: this.password
+				};
+				await useri.addUser(data).then(resp => {
+					console.log(resp.data)
+					uni.reLaunch({
+						url: '/pages/login/login?username=' + resp.data
+					});
+				});
+			}
 		}
 	}
 };

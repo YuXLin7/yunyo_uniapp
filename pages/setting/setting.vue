@@ -1,12 +1,10 @@
 <template>
 	<view class="viewport">
-		<!-- 导航栏 -->
-
 		<!-- 头像 -->
 		<view class="avatar">
 			<view class="avatar-content">
-				<image class="image" src="../../static/logo.png" mode="aspectFill" />
-				<text class="text">点击修改头像</text>
+				<image class="image" :src="userInfo.headUrl" mode="aspectFill" @click="openChooseAvatar" />
+				<text class="text" @click="openChooseAvatar">点击修改头像</text>
 			</view>
 		</view>
 		<!-- 表单 -->
@@ -15,11 +13,11 @@
 			<view class="form-content">
 				<view class="form-item">
 					<text class="label">账号</text>
-					<text class="account">账号名</text>
+					<text class="account">{{ userInfo.username }}</text>
 				</view>
 				<view class="form-item">
 					<text class="label">昵称</text>
-					<input class="input" type="text" placeholder="请填写昵称" value="" />
+					<input class="input" type="text" placeholder="请填写昵称" v-model="userInfo.nickname" />
 				</view>
 				<!-- <view class="form-item">
 					<text class="label">性别</text>
@@ -41,54 +39,85 @@
 						<view class="placeholder" v-else>请选择日期</view>
 					</picker>
 				</view> -->
-				<view class="form-item">
+				<!-- <view class="form-item">
 					<text class="label">城市</text>
 					<picker class="picker" mode="region" :value="getAddress" @change="updateAddress">
 						<view v-if="userInfo.address != ''">{{ userInfo.address }}</view>
 						<view class="placeholder" v-else>请选择城市</view>
 					</picker>
-				</view>
+				</view> -->
 				<view class="form-item">
 					<text class="label">姓名</text>
-					<input class="input" type="text" placeholder="请填写姓名" value="" />
+					<input class="input" type="text" placeholder="请填写姓名" v-model="userInfo.name" />
 				</view>
 				<view class="form-item">
 					<text class="label">手机</text>
-					<input class="input" type="text" placeholder="请填写手机" value="" />
+					<input class="input" type="text" placeholder="请填写手机" v-model="userInfo.phone" />
 				</view>
 				<view class="form-item">
 					<text class="label">邮箱</text>
-					<input class="input" type="text" placeholder="请填写邮箱" value="" />
+					<input class="input" type="text" placeholder="请填写邮箱" v-model="userInfo.email" />
 				</view>
 				<view class="form-item">
 					<text class="label">身份证</text>
-					<input class="input" type="text" placeholder="请填写身份证" value="" />
+					<input class="input" type="text" placeholder="请填写身份证" v-model="userInfo.idCard" />
 				</view>
 			</view>
 			<!-- 提交按钮 -->
-			<button class="form-button">保 存</button>
+			<button class="form-button" @click="updateUser">保 存</button>
 		</view>
 	</view>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { useri } from '../../util/user.js';
+
 export default {
 	data() {
 		return {
-			userInfo: {},
+			userInfo: {}
 		};
 	},
-	mounted() {
-		
+	onLoad: async function(options) {
+		await useri.getUserById(options.id).then(resp => {
+			this.userInfo = resp.data;
+		});
 	},
 	methods: {
+		...mapActions(['updateUserInfo']),
 		updateAddress(event) {
 			this.userInfo.address = event.detail.value.join(' ');
+		},
+		openChooseAvatar() {
+			wx.chooseImage({
+				count: 1, // 最多可以选择的图片张数
+				sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+				sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+				success: res => {
+					// 选择图片成功，处理选中的图片
+					this.userInfo.headUrl = res.tempFilePaths[0];
+					console.log(this.userInfo.headUrl)
+				},
+				fail: err => {
+					console.log(err);
+				}
+			});
+		},
+		async updateUser() {
+			await useri.updateUser(this.userInfo).then(resp => {
+				uni.showToast({
+					title: resp.message,
+					icon: 'none',
+					duration: 2000
+				});
+				this.updateUserInfo(this.userInfo)
+			});
 		}
 	},
 	computed: {
 		getAddress() {
-			return this.userInfo.address == null ? '北京市 北京市 东城区' : this.userInfo.address.split(' ')
+			return this.userInfo.address == null ? '北京市 北京市 东城区' : this.userInfo.address.split(' ');
 		}
 	}
 };

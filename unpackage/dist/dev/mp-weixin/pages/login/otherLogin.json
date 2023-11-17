@@ -1,9 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "其他登陆方式",
   "enablePullDownRefresh": false,
-  "navigationStyle": "custom",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "custom-navbar": "/components/CustomNavbar"
-  }
+  "usingComponents": {}
 }

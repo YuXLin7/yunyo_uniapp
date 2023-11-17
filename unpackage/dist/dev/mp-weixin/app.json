@@ -9,7 +9,14 @@
     "pages/login/otherLogin",
     "pages/register/register",
     "pages/setting/setting",
-    "pages/visitorInfor/visitorInfor"
+    "pages/visitorInfor/visitorInfor",
+    "pages/visitorInfor/addVisitor",
+    "pages/order/order",
+    "pages/order/detail",
+    "pages/order/payment",
+    "pages/attraction/detail",
+    "pages/hotel/detail",
+    "pages/hotel/room"
   ],
   "subPackages": [],
   "window": {

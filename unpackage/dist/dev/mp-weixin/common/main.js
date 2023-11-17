@@ -1,27 +1,59 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/main"],[
 /* 0 */
-/*!*****************************************************************!*\
-  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/main.js ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/main.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+/* WEBPACK VAR INJECTION */(function(uni, createApp) {__webpack_require__(/*! uni-pages */ 4);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
 
 
 
-var _uviewUi = _interopRequireDefault(__webpack_require__(/*! uview-ui */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.config.productionTip = false;
-_vue.default.use(_uviewUi.default);
+var _uviewUi = _interopRequireDefault(__webpack_require__(/*! uview-ui */ 11));
 
-_App.default.mpType = 'app';
 
-var app = new _vue.default(_objectSpread({},
-_App.default));
 
-createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
+var _requestMiniprogram = __webpack_require__(/*! @escook/request-miniprogram */ 135);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 136));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.config.productionTip = false;_vue.default.use(_uviewUi.default); // @escook/request-miniprogram 网络请求
+// 在 uni-app 项目中，可以把 $http 挂载到 uni 顶级对象之上，方便全局调用
+uni.$http = _requestMiniprogram.$http; // 请求根路径 <<<<<<<<<<<<<< 记得改一下请求路径
+_requestMiniprogram.$http.baseUrl = "http://localhost:8088"; // 请求拦截器
+_requestMiniprogram.$http.beforeRequest = function (options) {// 提示加载中
+  uni.showLoading({ title: "数据加载中..." }); // 请求头添加token
+  var token = uni.getStorageSync('token');if (token) {options.header = { "token": token };}}; // 响应拦截器
+_requestMiniprogram.$http.afterRequest = function (res) {// 关闭提示
+  uni.hideLoading();};_App.default.mpType = 'app';var app = new _vue.default(_objectSpread(_objectSpread({}, _App.default), {}, { store: _index.default }));createApp(app).$mount();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
 /***/ }),
 /* 1 */,
@@ -29,9 +61,9 @@ createApp(app).$mount();
 /* 3 */,
 /* 4 */,
 /* 5 */
-/*!*****************************************************************!*\
-  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/App.vue ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/App.vue ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68,9 +100,9 @@ component.options.__file = "App.vue"
 
 /***/ }),
 /* 6 */
-/*!******************************************************************************************!*\
-  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/App.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/App.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -83,9 +115,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 7 */
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/App.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/App.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -115,9 +147,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 8 */
-/*!***************************************************************************************************!*\
-  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/App.vue?vue&type=style&index=0&lang=scss& ***!
-  \***************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/App.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -130,9 +162,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 9 */
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/JavaWeb/HBuilderX/HBuilderProjects/uniapp-demo/App.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/App.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

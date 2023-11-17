@@ -1,8 +1,6 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "注册",
   "enablePullDownRefresh": false,
-  "navigationStyle": "custom",
-  "navigationBarTextStyle": "white",
   "usingComponents": {
     "custom-navbar": "/components/CustomNavbar"
   }

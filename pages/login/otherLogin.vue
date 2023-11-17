@@ -1,13 +1,10 @@
 <template>
 	<view>
-		<custom-navbar @safe-height="getHeight"></custom-navbar>
 		<form catchsubmit="formSubmit" catchreset="formReset">
-			<view class="input-list" :style="{ paddingTop: height + 'px' }">
+			<view class="input-list">
 				<view class="input-item">
 					<text class="input-item-label">{{ phoneOrEmail }}</text>
-					<view class="input-item-content">
-						<input type="number" v-model="PENumber" :placeholder="'请输入您的' + phoneOrEmail" maxlength="11" bindinput="inputPhone" />
-					</view>
+					<view class="input-item-content"><input type="number" v-model="PENumber" :placeholder="'请输入您的' + phoneOrEmail" bindinput="inputPhone" /></view>
 				</view>
 
 				<view class="input-item">
@@ -23,12 +20,12 @@
 </template>
 
 <script>
-import CustomNavbar from '../../components/CustomNavbar.vue';
+import { useri } from '../../util/user.js';
+import { mapActions } from 'vuex';
 
 export default {
 	data() {
 		return {
-			height: '',
 			phoneOrEmail: '手机号',
 			codeNum: 10,
 			codeMsg: '发送验证码',
@@ -39,9 +36,6 @@ export default {
 			codeErrMsg: ''
 		};
 	},
-	components: {
-		CustomNavbar
-	},
 	mounted() {
 		this.sendType = this.$root.$mp.query.type;
 		if (this.sendType === '1') {
@@ -51,26 +45,54 @@ export default {
 		}
 	},
 	methods: {
+		...mapActions(['userLoginAction']),
 		getHeight(safeAreaInsets) {
 			this.height = safeAreaInsets;
 		},
-		login() {
-			// if(this.sendType === '1') {
-			// 	console.log('发送手机验证码')
-			// } else {
-			// 	console.log('发送邮箱验证码')
-			// }
-			uni.reLaunch({
-				url: '/pages/index/index'
+		async login() {
+			var data = {};
+
+			if (this.sendType === '1') {
+				data = {
+					phone: this.PENumber,
+					code: this.inputCode
+				};
+			} else {
+				data = {
+					email: this.PENumber,
+					code: this.inputCode
+				};
+			}
+
+			await useri.login(data).then(resp => {
+				if (resp.code == 200) {
+					this.userLoginAction(resp.data.user);
+					uni.setStorageSync('token', resp.data.token);
+					uni.reLaunch({
+						url: '/pages/index/index'
+					});
+				}
 			});
 		},
-		sendCode() {
+		async sendCode() {
 			this.disabled = true;
 			this.codeMsg = '重新发送(' + this.codeNum + ')';
+
 			let timer = setInterval(() => {
 				--this.codeNum;
 				this.codeMsg = '重新发送(' + this.codeNum + ')';
 			}, 1000);
+
+			if (this.sendType === '1') {
+				await useri.sendMsg(this.PENumber).then(resp => {
+					console.log(resp);
+				});
+			} else {
+				await useri.sendEmail(this.PENumber).then(resp => {
+					console.log(resp);
+				});
+			}
+
 			setTimeout(() => {
 				clearInterval(timer);
 				this.codeNum = 10;

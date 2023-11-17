@@ -36,13 +36,13 @@ page {
   height: 70px;
   margin: 10px 0 10px 20px;
 }
-#username {
+#nickname {
   margin: 15px 0 0 10px;
   font-size: 20px;
 }
-#userid {
+#phone {
   margin-top: 50px;
-  margin-left: -80px;
+  margin-left: -100px;
 }
 .viewport {
   padding: 20rpx;
@@ -78,7 +78,7 @@ page {
   border: none;
 }
 .list .item::after {
-  content: "";
+  content: '';
   right: 5rpx;
 }
 .list .arrow::after {
@@ -104,5 +104,56 @@ page {
   margin-bottom: 20rpx;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
+}
+.orders {
+  position: relative;
+  z-index: 99;
+  padding: 30rpx;
+  margin: 50rpx 25rpx 20rpx;
+  background-color: #fff;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  -webkit-box-shadow: 0 4rpx 6rpx rgba(240, 240, 240, 0.6);
+          box-shadow: 0 4rpx 6rpx rgba(240, 240, 240, 0.6);
+}
+.orders .title {
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #1e1e1e;
+}
+.orders .title .navigator {
+  font-size: 24rpx;
+  color: #939393;
+  float: right;
+}
+.orders .section {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  padding-top: 20rpx;
+}
+.orders .section .vertical-layout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  font-size: 24rpx;
+}
+.orders .section .vertical-layout image {
+  height: 30px;
 }
 

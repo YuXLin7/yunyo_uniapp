@@ -6,14 +6,16 @@
 			<view class="username">
 				账号：
 				<!-- <input v-model="username" type="number" placeholder="请输入您的账号" /> -->
-				<u-input v-model="username" type="number" placeholder="请输入您的账号"></u-input>
+				<!-- <u-input v-model="username" type="number" placeholder="请输入您的账号"></u-input> -->
+				<uni-easyinput v-model="username" border-color="#28bb9c" placeholder="请输入您的账号"></uni-easyinput>
 			</view>
 			<view class="password">
 				密码：
 				<!-- <input v-model="password" password type="text" placeholder="请输入您的密码"/> -->
-				<u-input v-model="password" type="password" placeholder="请输入您的密码"></u-input>
+				<!-- <u-input v-model="password" type="password" placeholder="请输入您的密码"></u-input> -->
+				<uni-easyinput class="inp" type="password" v-model="password" placeholder="请输入您的密码"></uni-easyinput>
 			</view>
-			<button class="button phone" @click="login">登录</button>
+			<button class="button phone" @click="userLogin">登录</button>
 			<view class="extra">
 				<view class="caption"><text>其他登录方式</text></view>
 				<view class="options">
@@ -28,25 +30,58 @@
 </template>
 
 <script>
-import CustomNavbar from '../../components/CustomNavbar.vue'
-	
+import CustomNavbar from '../../components/CustomNavbar.vue';
+import { useri } from '../../util/user.js';
+import { mapActions } from 'vuex';
+
 export default {
 	data() {
 		return {
 			username: '',
-			password: '',
+			password: ''
 		};
 	},
 	components: {
 		CustomNavbar
 	},
-	methods: {
-		login() {
-			console.log(this.username)
-			console.log(this.password)
-			uni.reLaunch({
-				url: '/pages/index/index'
+	onLoad: function(options) {
+		if (options.username != null) {
+			this.username = options.username;
+			uni.showModal({
+				content: '请记住你的账号：' + this.username
 			});
+		}
+	},
+	methods: {
+		...mapActions(['userLoginAction']),
+		async userLogin() {
+			if (this.username == '' || this.password == '') {
+				uni.showToast({
+					title: '请输入账号密码！',
+					icon: 'none',
+					duration: 2000
+				});
+			} else {
+				const data = {
+					username: this.username,
+					password: this.password
+				};
+				await useri.login(data).then(resp => {
+					if (resp.code == 200) {
+						this.userLoginAction(resp.data.user);
+						uni.setStorageSync('token', resp.data.token);
+						uni.reLaunch({
+							url: '/pages/index/index'
+						});
+					} else {
+						uni.showToast({
+							title: resp.message,
+							icon: 'none',
+							duration: 2000
+						});
+					}
+				});
+			}
 		},
 		otherLogin(type) {
 			uni.navigateTo({
@@ -92,6 +127,10 @@ page {
 	.username {
 		display: flex;
 		text-align: center;
+
+		.input-focus {
+			border-color: red;
+		}
 	}
 
 	.password {

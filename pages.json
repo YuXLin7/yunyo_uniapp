@@ -44,7 +44,7 @@
 		}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false,
 				"navigationStyle": "custom",
 				"navigationBarTextStyle": "white"
@@ -53,35 +53,88 @@
 		}, {
 			"path": "pages/login/otherLogin",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom",
-				"navigationBarTextStyle": "white"
+				"navigationBarTitleText": "其他登陆方式",
+				"enablePullDownRefresh": false
 			}
 
 		}, {
 			"path": "pages/register/register",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "注册",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/setting/setting",
+			"style": {
+				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false,
-				"navigationStyle": "custom",
+				"navigationBarBackgroundColor": "#00bf9b",
 				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "pages/visitorInfor/visitorInfor",
+			"style": {
+				"navigationBarTitleText": "信息管理",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/visitorInfor/addVisitor",
+			"style": {
+				"navigationBarTitleText": "游客信息",
+				"enablePullDownRefresh": false
 			}
 
 		}
 	    ,{
-            "path" : "pages/setting/setting",
+            "path" : "pages/order/order",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "个人中心",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor":"#00bf9b",
-				"navigationBarTextStyle": "white"
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
             }
             
         }
         ,{
-            "path" : "pages/visitorInfor/visitorInfor",
+            "path" : "pages/order/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order/payment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "付款",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/attraction/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/hotel/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/hotel/room",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -124,6 +177,9 @@
 		}]
 	},
 	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
 	}
 }
