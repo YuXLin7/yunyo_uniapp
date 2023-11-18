@@ -13,12 +13,11 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    },
-    "ignoreUploadUnusedFiles": false
+    }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.2.0",
-  "appid": "wx60ea0d0f0cf96c96",
+  "libVersion": "3.2.2",
+  "appid": "wx6036ffa6ba4f68ac",
   "projectname": "uniapp-demo",
   "condition": {
     "search": {
