@@ -1,5 +1,4 @@
 {
   "navigationBarTitleText": "付款",
-  "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "enablePullDownRefresh": false
 }
