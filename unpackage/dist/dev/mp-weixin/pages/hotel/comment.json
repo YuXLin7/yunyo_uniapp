@@ -1,0 +1,10 @@
+{
+<<<<<<< HEAD:unpackage/dist/dev/mp-weixin/pages/order/payment.json
+  "navigationBarTitleText": "付款",
+  "enablePullDownRefresh": false
+=======
+  "navigationBarTitleText": "全部评价",
+  "enablePullDownRefresh": false,
+  "usingComponents": {}
+>>>>>>> ljd:unpackage/dist/dev/mp-weixin/pages/hotel/comment.json
+}

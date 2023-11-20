@@ -92,11 +92,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  uTopTips: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-top-tips/u-top-tips */ "node-modules/uview-ui/components/u-top-tips/u-top-tips").then(__webpack_require__.bind(null, /*! uview-ui/components/u-top-tips/u-top-tips.vue */ 243))
+  },
+  uPopup: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 250))
+  },
+  uCalendar: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-calendar/u-calendar */ "node-modules/uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-calendar/u-calendar.vue */ 257))
+  },
+  uNumberBox: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-number-box/u-number-box */ "node-modules/uview-ui/components/u-number-box/u-number-box").then(__webpack_require__.bind(null, /*! uview-ui/components/u-number-box/u-number-box.vue */ 264))
+  },
+  uRadioGroup: function() {
+    return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 271))
+  },
+  uRadio: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */ "node-modules/uview-ui/components/u-radio/u-radio").then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 279))
+  },
+  uButton: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 286))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.show2 = true
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -203,27 +230,171 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+<<<<<<< HEAD
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _user = __webpack_require__(/*! ../../util/user.js */ 67);
+var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+>>>>>>> ljd
 
 {
   data: function data() {
     return {
+      attractionId: 0,
       currentIndex: 0,
       attractionInfo: {},
-      ticketList: {} };
+      ticketList: {},
+      show: false,
+      name: '',
+      price: 0,
+      ticketId: 0,
+      num: 1,
+      show2: false,
+      useTime: '选择日期',
+      today: '',
+      maxDay: '',
+      value: 'orange',
+      list: [
+      {
+        name: 'apple',
+        disabled: false },
+
+      {
+        name: 'banner',
+        disabled: false },
+
+      {
+        name: 'orange',
+        disabled: false }] };
+
+
 
   },
-  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;var today, year, month, day, maxDate, maxYear, maxMonth, maxDay;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              this.attractionId = options.id;_context.next = 3;return (
                 _user.useri.getAttractionById(options.id).then(function (resp) {
                   _this.attractionInfo = resp.data;
-                }));case 2:_context.next = 4;return (
+                }));case 3:_context.next = 5;return (
                 _user.useri.getTicketById(options.id).then(function (resp) {
                   _this.ticketList = resp.data;
-                }));case 4:case "end":return _context.stop();}}}, _callee);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+                }));case 5:
+
+              today = new Date();
+              year = today.getFullYear();
+              month = today.getMonth() + 1;
+              day = today.getDate();
+              this.today = year + '-' + month + '-' + day;
+
+              maxDate = new Date(today);
+              maxDate.setDate(day + 14);
+              maxYear = maxDate.getFullYear();
+              maxMonth = maxDate.getMonth() + 1;
+              maxDay = maxDate.getDate();
+              this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;case 16:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+
+  computed: _objectSpread({},
+  (0, _vuex.mapState)(['userInfo'])),
 
   methods: {
     swiperChange: function swiperChange(e) {
       this.currentIndex = e.detail.current;
+    },
+    addOrder: function addOrder(ticket, price) {
+      this.name = this.attractionInfo.name + '-' + ticket;
+      this.price = price;
+      this.show = true;
+    },
+    commit: function commit() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var data;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                _this2.show = false;
+                data = {
+                  userId: _this2.userInfo.id,
+                  goodsType: 1,
+                  attractionId: _this2.attractionId,
+                  name: _this2.name,
+                  num: _this2.num,
+                  price: _this2.price,
+                  useTime: _this2.useTime + ' 00:00:00',
+                  state: 1 };
+
+                console.log(data);_context2.next = 5;return (
+                  _user.useri.addOrder(data).then(function (resp) {
+                    if (resp.code == 200) {
+                      _this2.$refs.uTips.show({
+                        title: '预定成功，请及时付款！',
+                        type: 'success',
+                        duration: '2000' });
+
+                    }
+                  }));case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+    change: function change(e) {
+      this.useTime = e.result;
+    },
+    valChange: function valChange(e) {
+      this.num = e.value;
+    },
+    radioGroupChange: function radioGroupChange(e) {
+      console.log(e);
     } } };exports.default = _default;
 
 /***/ }),

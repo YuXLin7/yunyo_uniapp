@@ -79,7 +79,7 @@ export default {
 		},
 		visitorInfor() {
 			uni.navigateTo({
-				url: '/pages/visitorInfor/visitorInfor'
+				url: '/pages/visitorInfor/visitorInfor?id=' + this.userInfo.id
 			});
 		},
 		setting() {
@@ -118,6 +118,7 @@ page {
 	image {
 		height: 70px;
 		margin: 10px 0 10px 20px;
+		border-radius: 10rpx;
 	}
 }
 

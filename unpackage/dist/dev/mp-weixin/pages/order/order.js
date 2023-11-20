@@ -93,17 +93,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
+<<<<<<< HEAD
   uniSwipeAction: function() {
     return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-swipe-action/uni-swipe-action */ "node-modules/@dcloudio/uni-ui/lib/uni-swipe-action/uni-swipe-action").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-swipe-action/uni-swipe-action.vue */ 281))
   },
   uniSwipeActionItem: function() {
     return Promise.all(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-swipe-action-item/uni-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-ui/lib/uni-swipe-action-item/uni-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-swipe-action-item/uni-swipe-action-item.vue */ 286))
+=======
+  uEmpty: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 229))
+>>>>>>> ljd
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list, function(item, __i0__) {
+    var $orig = _vm.__get_orig(item)
+
+    var m0 = _vm.getState(item.state)
+    return {
+      $orig: $orig,
+      m0: m0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -137,60 +160,85 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+
 {
   data: function data() {
     return {
-      pageUrl: './detail' };
+      pageUrl: './detail',
+      type: 0,
+      isEmpty: false,
+      list: [],
+      slot: false };
 
   },
-  methods: {},
+  methods: {
+    getState: function getState(state) {
+      if (state == 1) {
+        return '待付款';
+      } else if (state == 2) {
+        return '待使用';
+      } else if (state == 3) {
+        return '待评论';
+      }
+    } },
+
   // order页面的onLoad方法中接收参数
-  onLoad: function onLoad(options) {
-    if (options.type == 1) {
-      wx.setNavigationBarTitle({
-        title: '待付款' });
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              this.type = options.type;if (!(
+              options.type == 1)) {_context.next = 8;break;}
+              wx.setNavigationBarTitle({
+                title: '待付款' });_context.next = 5;return (
 
-      this.pageUrl = './payment';
-    } else if (options.type == 2) {
-      wx.setNavigationBarTitle({
-        title: '待使用' });
+                _user.useri.getOrder(1, 3, { state: 1 }).then(function (resp) {
+                  _this.list = resp.data.records;
+                }));case 5:
+              this.pageUrl = './payment';_context.next = 23;break;case 8:if (!(
+              options.type == 2)) {_context.next = 14;break;}
+              wx.setNavigationBarTitle({
+                title: '待使用' });_context.next = 12;return (
 
-    } else if (options.type == 3) {
-      wx.setNavigationBarTitle({
-        title: '待评论' });
+                _user.useri.getOrder(1, 3, { state: 2 }).then(function (resp) {
+                  _this.list = resp.data.records;
+                }));case 12:_context.next = 23;break;case 14:if (!(
+              options.type == 3)) {_context.next = 20;break;}
+              wx.setNavigationBarTitle({
+                title: '待评论' });_context.next = 18;return (
 
-    } else {
-      wx.setNavigationBarTitle({
-        title: '全部订单' });
+                _user.useri.getOrder(1, 3, { state: 3 }).then(function (resp) {
+                  _this.list = resp.data.records;
+                }));case 18:_context.next = 23;break;case 20:
 
-    }
-  } };exports.default = _default;
+              wx.setNavigationBarTitle({
+                title: '全部订单' });_context.next = 23;return (
+
+                _user.useri.getOrder(1, 3, null).then(function (resp) {
+                  _this.list = resp.data.records;
+                }));case 23:
+
+
+              if (this.list.length == 0) {
+                this.isEmpty = true;
+              }case 24:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}() };exports.default = _default;
 
 /***/ }),
 

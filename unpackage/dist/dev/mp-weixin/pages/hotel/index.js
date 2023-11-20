@@ -93,8 +93,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
+  uNavbar: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-navbar/u-navbar */ "node-modules/uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-navbar/u-navbar.vue */ 215))
+  },
   uniEasyinput: function() {
     return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput */ "node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput.vue */ 222))
+<<<<<<< HEAD
+=======
+  },
+  uEmpty: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 229))
+>>>>>>> ljd
   }
 }
 var render = function() {
@@ -134,7 +143,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+=======
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+>>>>>>> ljd
 
 
 
@@ -154,13 +167,28 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+<<<<<<< HEAD
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var CustomNavbar = function CustomNavbar() {__webpack_require__.e(/*! require.ensure | components/CustomNavbar */ "components/CustomNavbar").then((function () {return resolve(__webpack_require__(/*! ../../components/CustomNavbar.vue */ 208));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+=======
+
+
+
+
+
+
+
+var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+>>>>>>> ljd
 
 {
   data: function data() {
     return {
-      height: '',
-      list: [] };
+      background: {
+        backgroundColor: '#28bb9c' },
+
+      list: [],
+      location: '未获取当前位置',
+      search: {} };
 
   },
   onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
@@ -168,13 +196,39 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
                   _this.list = resp.data.records;
                 }));case 2:case "end":return _context.stop();}}}, _callee);}));function onLoad() {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
-  components: {
-    CustomNavbar: CustomNavbar },
-
   methods: {
-    getHeight: function getHeight(safeAreaInsets) {
-      this.height = safeAreaInsets;
+    searchHotel: function searchHotel() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _user.useri.getHotelPage(1, 3, _this2.search).then(function (resp) {
+                    _this2.list = resp.data.records;
+                  }));case 2:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+    getLocation: function getLocation() {var _this3 = this;
+      uni.getLocation({
+        type: 'gcj02', // 坐标系类型
+        success: function success(res) {
+          var latitude = res.latitude; // 维度
+          var longitude = res.longitude; // 经度
+          // 使用逆地理编码获取具体位置信息
+          uni.chooseLocation({
+            latitude: latitude,
+            longitude: longitude,
+            success: function success(res) {
+              _this3.location = res.address.substring(6, 8) + ', ' + res.name + '附近';
+              _this3.search.address = res.address.substring(6, 9);
+              console.log(_this3.search);
+              _user.useri.getHotelPage(1, 3, _this3.search).then(function (resp) {
+                _this3.list = resp.data.records;
+                console.log(_this3.list);
+              });
+            } });
+
+        },
+        fail: function fail(res) {
+          console.log('获取定位失败：' + res.errMsg);
+        } });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

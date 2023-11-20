@@ -4,18 +4,18 @@
 		<view class="logo"><image src="@/static/logo4.png" mode="heightFix"></image></view>
 		<view class="login">
 			<view class="username">
-				账号：
+				<text style="font-size: 15px; margin: auto 0;">账号：</text>
 				<!-- <input v-model="username" type="number" placeholder="请输入您的账号" /> -->
 				<!-- <u-input v-model="username" type="number" placeholder="请输入您的账号"></u-input> -->
 				<uni-easyinput v-model="username" border-color="#28bb9c" placeholder="请输入您的账号"></uni-easyinput>
 			</view>
 			<view class="password">
-				密码：
+				<text style="font-size: 15px; margin: auto 0;">密码：</text>
 				<!-- <input v-model="password" password type="text" placeholder="请输入您的密码"/> -->
 				<!-- <u-input v-model="password" type="password" placeholder="请输入您的密码"></u-input> -->
 				<uni-easyinput class="inp" type="password" v-model="password" placeholder="请输入您的密码"></uni-easyinput>
 			</view>
-			<button class="button phone" @click="userLogin">登录</button>
+			<button class="button phone" @click="userLogin">登 录</button>
 			<view class="extra">
 				<view class="caption"><text>其他登录方式</text></view>
 				<view class="options">
@@ -37,8 +37,8 @@ import { mapActions } from 'vuex';
 export default {
 	data() {
 		return {
-			username: '',
-			password: ''
+			username: '1183928835',
+			password: '111111'
 		};
 	},
 	components: {
@@ -155,7 +155,7 @@ page {
 		justify-content: center;
 		width: 100%;
 		height: 80rpx;
-		font-size: 28rpx;
+		font-size: 40rpx;
 		border-radius: 72rpx;
 		color: #fff;
 	}

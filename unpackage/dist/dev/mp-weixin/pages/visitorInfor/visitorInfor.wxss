@@ -78,9 +78,18 @@ page {
 .address .item-content .edit {
   position: absolute;
   top: 36rpx;
-  right: 30rpx;
+  right: 100rpx;
   padding: 2rpx 0 2rpx 20rpx;
   border-left: 1rpx solid #666;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1;
+}
+.address .item-content .delete {
+  position: absolute;
+  top: 36rpx;
+  right: 30rpx;
+  padding: 2rpx 0 2rpx 20rpx;
   font-size: 26rpx;
   color: #666;
   line-height: 1;
@@ -128,5 +137,16 @@ page {
           border-radius: 80rpx;
   font-size: 30rpx;
   background-color: #27ba9b;
+}
+.u-demo-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 

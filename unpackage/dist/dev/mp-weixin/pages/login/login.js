@@ -173,8 +173,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
 {
   data: function data() {
     return {
-      username: '',
-      password: '' };
+      username: '1183928835',
+      password: '111111' };
 
   },
   components: {

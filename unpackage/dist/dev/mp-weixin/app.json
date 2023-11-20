@@ -13,10 +13,10 @@
     "pages/visitorInfor/addVisitor",
     "pages/order/order",
     "pages/order/detail",
-    "pages/order/payment",
     "pages/attraction/detail",
     "pages/hotel/detail",
-    "pages/hotel/room"
+    "pages/hotel/room",
+    "pages/hotel/comment"
   ],
   "subPackages": [],
   "window": {
@@ -57,5 +57,14 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation"
+  ],
   "usingComponents": {}
 }

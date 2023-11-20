@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<u-top-tips ref="uTips"></u-top-tips>
 		<!-- 基本信息 -->
 		<view class="goods">
 			<!-- 商品主图 -->
@@ -20,7 +21,9 @@
 
 			<!-- 商品简介 -->
 			<view class="meta">
-				<view class="price"><text style="font-size: 25px;">{{ roomInfo.name }}</text></view>
+				<view class="price">
+					<text style="font-size: 25px;">{{ roomInfo.name }}</text>
+				</view>
 			</view>
 
 			<!-- 操作面板 -->
@@ -42,30 +45,173 @@
 					<text>{{ roomInfo.detail }}</text>
 				</view>
 			</view>
-			
-			<button type="default">立即订购</button>
+
+			<view class="lis">
+				<view class="useDate">
+					<text>入住日期</text>
+					<button size="mini" @click="show = true">选择日期</button>
+					<view>
+						<u-calendar
+							v-model="show"
+							ref="calendar"
+							@change="change"
+							mode="range"
+							:start-text="startText"
+							:end-text="endText"
+							:range-color="rangeColor"
+							:range-bg-color="rangeBgColor"
+							:active-bg-color="activeBgColor"
+							:btn-type="btnType"
+							:min-date="today"
+							:max-date="maxDay"
+						></u-calendar>
+					</view>
+				</view>
+
+				<view class="num">
+					<text>房间数量</text>
+					<u-number-box v-model="num" @change="valChange" :min="1" :input-width="150" :input-height="60" bg-color="#fff"></u-number-box>
+				</view>
+			</view>
+
+			<view class="visitorList">
+				<text style="font-size: 18px;">住客信息</text>
+				<text style="margin-left: 20rpx;">
+					须填
+					<text style="color: red; margin: 0 10rpx;">{{ num }}</text>
+					位，用于入住身份验证
+				</text>
+				<view class="visitors">
+					<u-radio-group v-model="value" @change="radioGroupChange">
+						<u-radio v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">{{ item.name }}</u-radio>
+						<u-button class="more" shape="circle" size="mini">更多</u-button>
+					</u-radio-group>
+					<view class="info" v-for="(item, index) in num" :key="index">
+						<u-button class="clean" shape="circle" size="mini" style="width: 10px;">✖</u-button>
+						<view class="name">名字</view>
+						<view class="phone">手机号 18923043691</view>
+						<u-button class="edit" shape="circle" size="mini">编辑</u-button>
+					</view>
+				</view>
+			</view>
+
+			<button type="default" @click="commit">立即订购</button>
 		</view>
 	</view>
 </template>
 
 <script>
 import { useri } from '../../util/user.js';
+import { mapState } from 'vuex';
 
 export default {
 	data() {
 		return {
 			currentIndex: 0,
-			roomInfo: {}
+			roomInfo: {},
+			hotelId: 0,
+			hotelName: '',
+			num: 1,
+			price: 0,
+			show: false,
+			result: '请选择日期',
+			startText: '住店',
+			endText: '离店',
+			activeBgColor: '#35c8a9',
+			rangeColor: '#35c8a9',
+			rangeBgColor: '#35c8a9',
+			btnType: 'success',
+			today: '',
+			maxDay: '',
+			value: 'orange',
+			list: [
+				{
+					name: 'apple',
+					disabled: false
+				},
+				{
+					name: 'banner',
+					disabled: false
+				},
+				{
+					name: 'orange',
+					disabled: false
+				}
+			]
 		};
 	},
 	onLoad: async function(options) {
-		await useri.getRoomById(options.id).then(resp => {
+		const data = JSON.parse(decodeURIComponent(options.data));
+		this.hotelId = data.hotelId;
+		this.hotelName = data.hotelName;
+		this.price = data.price
+
+		await useri.getRoomById(data.roomId).then(resp => {
 			this.roomInfo = resp.data;
 		});
+
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = today.getMonth() + 1;
+		const day = today.getDate();
+		this.today = year + '-' + month + '-' + day;
+
+		const maxDate = new Date(today);
+		maxDate.setDate(day + 14);
+		const maxYear = maxDate.getFullYear();
+		const maxMonth = maxDate.getMonth() + 1;
+		const maxDay = maxDate.getDate();
+		this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;
 	},
 	methods: {
 		swiperChange(e) {
-			this.currentIndex = e.detail.current
+			this.currentIndex = e.detail.current;
+		},
+		change(e) {
+			this.result = e.startDate + '入住,' + e.endDate + '离店';
+		},
+		valChange(e) {
+			this.num = e.value;
+		},
+		async commit() {
+			this.show = false;
+			const data = {
+				userId: this.userInfo.id,
+				goodsType: 2,
+				hotelId: this.hotelId,
+				name: this.hotelName,
+				num: this.num,
+				price: this.price * this.num,
+				useTime: this.result.substring(0, 10) + ' 00:00:00',
+				state: 1
+			};
+			console.log(data);
+			await useri.addOrder(data).then(resp => {
+				if (resp.code == 200) {
+					this.$refs.uTips.show({
+						title: '预定成功，请及时付款！',
+						type: 'success',
+						duration: '2000'
+					});
+				}
+			});
+		}
+	},
+	computed: {
+		...mapState(['userInfo']),
+		pickerValue: {
+			get() {
+				return this.selectedValue;
+			},
+			set(val) {
+				this.selectedValue = val;
+				console.log(this.selectedValue);
+				if (val) {
+					this.show = true; // 当 selectedValue 有值时，show为true
+				} else {
+					this.show = false; // 当 selectedValue 为空时，show为false
+				}
+			}
 		}
 	}
 };
@@ -73,6 +219,10 @@ export default {
 
 <style lang="scss">
 .goods {
+	width: 100%;
+	height: 100%;
+	padding-bottom: constant(safe-area-inset-bottom); // 兼容 IOS<11.2
+	padding-bottom: env(safe-area-inset-bottom); // 兼容 IOS>11.2
 	background-color: #fff;
 	.preview {
 		height: 750rpx;
@@ -161,10 +311,90 @@ export default {
 			-webkit-line-clamp: 1;
 		}
 	}
+	.lis {
+		margin: 0 10px;
+		padding: 4rpx 40rpx;
+		background-color: #e5e5e5;
+		margin-top: 30rpx;
+		border-radius: 10rpx;
+
+		.useDate {
+			margin: 30rpx 0;
+			display: flex;
+			font-size: 15px;
+			text {
+				width: auto;
+				margin: auto 0;
+			}
+			button {
+				width: auto;
+				color: white;
+				background-color: #28bb9c;
+				margin-right: 40rpx;
+			}
+		}
+
+		.num {
+			font-size: 15px;
+			margin: 30rpx 0;
+			text {
+				margin: auto 0;
+			}
+			u-number-box {
+				margin-left: 200rpx;
+			}
+		}
+	}
+
+	.visitorList {
+		position: relative;
+		margin: 20rpx 10px;
+		padding: 20rpx 40rpx 5rpx 40rpx;
+		background-color: #e5e5e5;
+		margin-top: 20rpx;
+		border-radius: 10rpx;
+
+		.visitors {
+			position: relative;
+			margin: 20rpx 0;
+			.more {
+				position: absolute;
+				right: 30rpx;
+			}
+			.info {
+				position: relative;
+				margin: 20rpx 0;
+				width: 600rpx;
+				height: 100rpx;
+				border-top: 1px solid #bfbfbf;
+				.clean {
+					position: absolute;
+					left: 0;
+					top: 30%;
+				}
+				.name {
+					position: absolute;
+					top: 10rpx;
+					left: 100rpx;
+				}
+				.phone {
+					position: absolute;
+					bottom: 0;
+					left: 100rpx;
+				}
+				.edit {
+					position: absolute;
+					right: 0;
+					top: 30%;
+				}
+			}
+		}
+	}
 	button {
-		margin: 0 10rpx;
-		background-color: #ff7d25;
+		margin: 0 auto;
+		background-color: #28bb9c;
 		color: white;
+		width: 300px;
 	}
 }
 </style>

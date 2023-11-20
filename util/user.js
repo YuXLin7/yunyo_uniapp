@@ -63,4 +63,44 @@ export const useri = {
 	getRoomById: (data) => {
 		return uni.$http.get("/travel/room/findRoomById/" + data)
 	},
+	
+	//获取订单信息
+	getOrder: (page, limit, data) => {
+		return uni.$http.get("/travel/order/" + page + "/" + limit, data)
+	},
+	
+	//根据id获取订单信息
+	getOrderById: (data) => {
+		return uni.$http.get("/travel/order/getHotelById/" + data)
+	},
+	
+	//新增订单信息
+	addOrder: (data) => {
+		return uni.$http.post("/travel/order/addOrder", data)
+	},
+	
+	//根据用户id获取游客信息
+	getAllVisitorByUserId: (data) => {
+		return uni.$http.get("/travel/visitor/selectAllVisitorByUserId/" + data)
+	},
+	
+	//新增游客信息
+	addVisitor: (data) => {
+		return uni.$http.post("/travel/visitor/addVisitor", data)
+	},
+	
+	//新增游客信息
+	updateVisitor: (data) => {
+		return uni.$http.post("/travel/visitor/updateVisitor", data)
+	},
+	
+	//根据id获取游客信息
+	getVisitorById: (data) => {
+		return uni.$http.get("/travel/visitor/selectVisitorById/" + data)
+	},
+	
+	//删除游客信息
+	deleteVisitor: (data) => {
+		return uni.$http.delete("/travel/visitor/removeVisitorById/" + data)
+	},
 }

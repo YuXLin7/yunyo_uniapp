@@ -211,7 +211,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     visitorInfor: function visitorInfor() {
       uni.navigateTo({
-        url: '/pages/visitorInfor/visitorInfor' });
+        url: '/pages/visitorInfor/visitorInfor?id=' + this.userInfo.id });
 
     },
     setting: function setting() {

@@ -1,109 +1,153 @@
 <template>
 	<view>
-		<!-- 购物车列表 -->
-		<view class="cart-list">
-			<!-- 滑动操作分区 -->
-			<uni-swipe-action>
-				<!-- 滑动操作项 -->
-				<uni-swipe-action-item v-for="item in 2" :key="item" class="cart-swipe">
-					<!-- 商品信息 -->
-					<view class="goods">
-						<!-- :url="`/pages/goods/goods?id=1435025`" -->
-						<navigator :url="pageUrl" hover-class="none" class="navigator">
-							<image mode="aspectFill" class="picture" src="https://yanxuan-item.nosdn.127.net/da7143e0103304f0f3230715003181ee.jpg"></image>
-							<view class="meta">
-								<view class="name ellipsis">人手必备，儿童轻薄透气防蚊裤73-140cm</view>
-								<view class="price">69.00</view>
-							</view>
-						</navigator>
-					</view>
-				</uni-swipe-action-item>
-			</uni-swipe-action>
+		<navigator :url="'./detail?type=' + type + '&id=' + item.orderId" hover-class="none" class="list" v-for="item in list" :key="item">
+			<view>
+				<image mode="aspectFill" class="picture" src="https://yanxuan-item.nosdn.127.net/da7143e0103304f0f3230715003181ee.jpg"></image>
+				<view class="meta">
+					<view class="name ellipsis">{{ item.name }}</view>
+					<view class="attrs">{{ getState(item.state) }}</view>
+					<view class="price">{{ item.price }}</view>
+				</view>
+			</view>
+		</navigator>
+		<view class="u-demo-area" v-if="isEmpty" style="height: 400px;">
+			<u-empty mode="order" text="暂无订单"></u-empty>
 		</view>
 	</view>
 </template>
 
 <script>
+import { useri } from '../../util/user.js';
+
 export default {
 	data() {
 		return {
-			pageUrl: './detail'
+			pageUrl: './detail',
+			type: 0,
+			isEmpty: false,
+			list: [],
+			slot: false
 		};
 	},
-	methods: {},
+	methods: {
+		getState(state) {
+			if (state == 1) {
+				return '待付款';
+			} else if (state == 2) {
+				return '待使用';
+			} else if (state == 3) {
+				return '待评论';
+			}
+		}
+	},
 	// order页面的onLoad方法中接收参数
-	onLoad: function(options) {
+	onLoad: async function(options) {
+		this.type = options.type;
 		if (options.type == 1) {
 			wx.setNavigationBarTitle({
 				title: '待付款'
 			});
-			this.pageUrl = './payment'
+			await useri.getOrder(1, 3, { state: 1 }).then(resp => {
+				this.list = resp.data.records;
+			});
+			this.pageUrl = './payment';
 		} else if (options.type == 2) {
 			wx.setNavigationBarTitle({
 				title: '待使用'
+			});
+			await useri.getOrder(1, 3, { state: 2 }).then(resp => {
+				this.list = resp.data.records;
 			});
 		} else if (options.type == 3) {
 			wx.setNavigationBarTitle({
 				title: '待评论'
 			});
+			await useri.getOrder(1, 3, { state: 3 }).then(resp => {
+				this.list = resp.data.records;
+			});
 		} else {
 			wx.setNavigationBarTitle({
 				title: '全部订单'
 			});
+			await useri.getOrder(1, 3, null).then(resp => {
+				this.list = resp.data.records;
+			});
+		}
+
+		if (this.list.length == 0) {
+			this.isEmpty = true;
 		}
 	}
 };
 </script>
 
 <style lang="scss">
-.cart-list {
-	.goods {
-		display: flex;
-		padding: 20rpx 20rpx 20rpx 80rpx;
+page {
+	background-color: #f4f4f4;
+}
+
+.list {
+	position: relative;
+	height: 170rpx;
+	margin: 20rpx 10px 0;
+	padding: 0 20rpx;
+	background-color: #fff;
+	border-radius: 10rpx;
+
+	.picture {
+		width: 170rpx;
+		height: 170rpx;
+		margin-left: -20rpx;
 		border-radius: 10rpx;
-		background-color: #fff;
-		position: relative;
+	}
 
-		.navigator {
-			display: flex;
-		}
+	.meta {
+		flex-direction: column;
+		justify-content: space-between;
+	}
 
-		.picture {
-			width: 170rpx;
-			height: 170rpx;
-		}
+	.name {
+		position: absolute;
+		top: 10rpx;
+		left: 200rpx;
+		width: 300px;
+		height: 72rpx;
+		font-size: 26rpx;
+		color: #444;
+	}
 
-		.meta {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			margin-left: 20rpx;
-		}
+	.attrs {
+		position: absolute;;
+		bottom: 10rpx;
+		right: 10rpx;
+		width: 50px;
+		line-height: 1.8;
+		padding: 0 15rpx;
+		font-size: 24rpx;
+		align-self: flex-start;
+		border-radius: 4rpx;
+		color: #888;
+		background-color: #f7f7f8;
+	}
 
-		.name {
-			height: 72rpx;
-			font-size: 26rpx;
-			color: #444;
-		}
+	.price {
+		position: absolute;;
+		bottom: 15rpx;
+		left: 200rpx;
+		line-height: 1;
+		font-size: 26rpx;
+		color: #cf4444;
 
-		.price {
-			line-height: 1;
-			font-size: 26rpx;
-			color: #444;
-			margin-bottom: 2rpx;
-			color: #cf4444;
-
-			&::before {
-				content: '￥';
-				font-size: 80%;
-			}
+		&::before {
+			content: '￥';
+			font-size: 80%;
 		}
 	}
 
-	.cart-swipe {
-		display: block;
-		margin: 20rpx 0;
+	.u-demo-area {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 </style>
