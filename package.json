@@ -2,7 +2,7 @@
   "dependencies": {
     "@dcloudio/uni-ui": "^1.4.28",
     "@escook/request-miniprogram": "^0.2.1",
-    "uview-ui": "^2.0.36"
+    "uview-ui": "^1.8.8"
   },
   "devDependencies": {
     "@uni-helper/uni-ui-types": "^0.5.11"

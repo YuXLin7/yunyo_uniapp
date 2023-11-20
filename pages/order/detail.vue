@@ -2,18 +2,18 @@
 	<scroll-view scroll-y class="viewport">
 		<!-- 商品信息 -->
 		<view class="goods">
-			<navigator v-for="item in 2" :key="item" :url="`/pages/goods/goods?id=1`" class="item" hover-class="none">
+			<view class="item" hover-class="none">
 				<image class="picture" src="https://yanxuan-item.nosdn.127.net/c07edde1047fa1bd0b795bed136c2bb2.jpg" />
 				<view class="meta">
-					<view class="name ellipsis">ins风小碎花泡泡袖衬110-160cm</view>
-					<view class="attrs">藏青小花 130</view>
+					<view class="name ellipsis">{{ info.name }}</view>
+					<view class="attrs">{{ info.useTime }}</view>
 					<view class="prices">
-						<view class="pay-price symbol">99.00</view>
+						<view class="pay-price symbol">{{ info.price }}</view>
 						<view class="price symbol">99.00</view>
 					</view>
-					<view class="count">x5</view>
+					<view class="count">x{{ info.num }}</view>
 				</view>
-			</navigator>
+			</view>
 		</view>
 
 		<!-- 配送及支付方式 -->
@@ -28,23 +28,40 @@
 		<view class="settlement">
 			<view class="item">
 				<text class="text">商品总价:</text>
-				<text class="number symbol">495.00</text>
+				<text class="number symbol">{{ getPrice }}</text>
 			</view>
+		</view>
+		
+		<!-- 吸底工具栏 -->
+		<view class="toolbar" v-if="isPayment">
+			<view class="total-pay symbol"><text class="number">{{ getPrice }}</text></view>
+			<view class="button">付款</view>
 		</view>
 	</scroll-view>
 </template>
 
 <script>
+import { useri } from '../../util/user.js';
+
 export default {
 	data() {
-		return {};
+		return {
+			isPayment: false,
+			info: {}
+		};
 	},
 	methods: {},
-	onLoad: function(options) {
+	onLoad: async function(options) {
 		if (options.type === '1') {
-			wx.navigateTo({
-				url: './payment'
-			});
+			this.isPayment = true
+		}
+		await useri.getOrderById(options.id).then(resp => {
+			this.info = resp.data;
+		});
+	},
+	computed: {
+		getPrice() {
+			return this.info.price * this.info.num;
 		}
 	}
 };
@@ -222,6 +239,46 @@ page {
 
 	.danger {
 		color: #cf4444;
+	}
+}
+/* 吸底工具栏 */
+.toolbar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: calc(var(--window-bottom));
+	z-index: 1;
+
+	background-color: #fff;
+	height: 100rpx;
+	padding: 0 20rpx;
+	border-top: 1rpx solid #eaeaea;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: content-box;
+
+	.total-pay {
+		font-size: 40rpx;
+		color: #cf4444;
+
+		.decimal {
+			font-size: 75%;
+		}
+	}
+
+	.button {
+		width: 220rpx;
+		text-align: center;
+		line-height: 72rpx;
+		font-size: 26rpx;
+		color: #fff;
+		border-radius: 72rpx;
+		background-color: #27ba9b;
+	}
+
+	.disabled {
+		opacity: 0.6;
 	}
 }
 </style>

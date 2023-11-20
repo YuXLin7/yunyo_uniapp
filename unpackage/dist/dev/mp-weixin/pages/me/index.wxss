@@ -35,6 +35,8 @@ page {
 .head image {
   height: 70px;
   margin: 10px 0 10px 20px;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 #nickname {
   margin: 15px 0 0 10px;

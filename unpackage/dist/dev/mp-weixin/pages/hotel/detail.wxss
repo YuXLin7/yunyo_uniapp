@@ -168,6 +168,10 @@
   right: 70px;
   color: red;
 }
+.goods .list .item .price::before {
+  content: '￥';
+  font-size: 80%;
+}
 .goods .list .item button {
   width: 60px;
   font-size: 10px;
@@ -176,5 +180,18 @@
   top: 25%;
   background-color: #ff7d25;
   color: white;
+}
+.goods .list .common {
+  font-size: 13px;
+}
+.goods .list .common .context {
+  width: 195px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.goods .list .common .context .time {
+  position: absolute;
+  right: 0;
 }
 

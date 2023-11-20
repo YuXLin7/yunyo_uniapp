@@ -107,15 +107,6 @@
             
         }
         ,{
-            "path" : "pages/order/payment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "付款",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/attraction/detail",
             "style" :                                                                                    
             {
@@ -137,7 +128,16 @@
             "path" : "pages/hotel/room",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "提交订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/hotel/comment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "全部评价",
                 "enablePullDownRefresh": false
             }
             
@@ -179,7 +179,8 @@
 	"easycom": {
 		"autoscan": true,
 		"custom": {
-			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 		}
 	}
 }

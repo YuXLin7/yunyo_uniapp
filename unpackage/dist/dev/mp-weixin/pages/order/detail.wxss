@@ -214,4 +214,47 @@ page {
 .settlement .danger {
   color: #cf4444;
 }
+/* 吸底工具栏 */
+.toolbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(0px);
+  z-index: 1;
+  background-color: #fff;
+  height: 100rpx;
+  padding: 0 20rpx;
+  border-top: 1rpx solid #eaeaea;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+.toolbar .total-pay {
+  font-size: 40rpx;
+  color: #cf4444;
+}
+.toolbar .total-pay .decimal {
+  font-size: 75%;
+}
+.toolbar .button {
+  width: 220rpx;
+  text-align: center;
+  line-height: 72rpx;
+  font-size: 26rpx;
+  color: #fff;
+  -webkit-border-radius: 72rpx;
+          border-radius: 72rpx;
+  background-color: #27ba9b;
+}
+.toolbar .disabled {
+  opacity: 0.6;
+}
 

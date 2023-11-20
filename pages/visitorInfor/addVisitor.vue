@@ -1,37 +1,90 @@
 <template>
 	<view>
+		<u-top-tips ref="uTips"></u-top-tips>
 		<view class="content">
 			<form>
-				<!-- 表单内容 -->
 				<view class="form-item">
 					<text class="label">游客姓名</text>
-					<input class="input" placeholder="请填写游客姓名" value="" />
+					<input class="input" placeholder="请填写游客姓名" v-model="visitor.name" />
 				</view>
 				<view class="form-item">
 					<text class="label">手机号码</text>
-					<input class="input" placeholder="请填写游客手机号码" value="" />
+					<input class="input" placeholder="请填写游客手机号码" v-model="visitor.phone" />
 				</view>
 				<view class="form-item">
 					<text class="label">身份证号</text>
-					<input class="input" placeholder="请填写游客身份证号" value="" />
+					<input class="input" placeholder="请填写游客身份证号" v-model="visitor.idCard" />
 				</view>
 				<view class="form-item">
 					<label class="label">设为默认使用</label>
-					<switch class="switch" color="#27ba9b" :checked="true" />
+					<switch class="switch" color="#27ba9b" :checked="checked" @change="switchChange" />
 				</view>
 			</form>
 		</view>
 		<!-- 提交按钮 -->
-		<button class="button">保存并使用</button>
+		<button class="button" @click="addVisitor">保存并使用</button>
 	</view>
 </template>
 
 <script>
+import { useri } from '../../util/user.js';
+import { mapState } from 'vuex';
+
 export default {
 	data() {
-		return {};
+		return {
+			isAdd: 1,
+			visitor: {},
+			name: '',
+			phone: '',
+			idCard: '',
+			checked: false
+		};
 	},
-	methods: {}
+	computed: {
+		...mapState(['userInfo'])
+	},
+	onLoad: async function(options) {
+		if (options.id != undefined) {
+			this.isAdd = 0
+			await useri.getVisitorById(options.id).then(resp => {
+				this.visitor = resp.data;
+				this.checked = this.visitor.isDefault == 1 ? true : false;
+			});
+		}
+		this.visitor.isDefault = 0;
+	},
+	methods: {
+		switchChange: function(e) {
+			this.visitor.isDefault = e.detail.value ? 1 : 0;
+		},
+		async addVisitor() {
+			if (this.visitor.userId == undefined) {
+				this.visitor.userId = this.userInfo.id;
+			}
+			if (this.isAdd == 1) {
+				await useri.addVisitor(this.visitor).then(resp => {
+					if (resp.code == 200) {
+						this.$refs.uTips.show({
+							title: '已新增游客信息！',
+							type: 'success',
+							duration: '2000'
+						});
+					}
+				});
+			} else {
+				await useri.updateVisitor(this.visitor).then(resp => {
+					if (resp.code == 200) {
+						this.$refs.uTips.show({
+							title: '已修改游客信息！',
+							type: 'success',
+							duration: '2000'
+						});
+					}
+				});
+			}
+		}
+	}
 };
 </script>
 

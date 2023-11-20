@@ -1,5 +1,9 @@
 {
   "navigationBarTitleText": "信息管理",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "u-top-tips": "/node-modules/uview-ui/components/u-top-tips/u-top-tips",
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty",
+    "u-modal": "/node-modules/uview-ui/components/u-modal/u-modal"
+  }
 }

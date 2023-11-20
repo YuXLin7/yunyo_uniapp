@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "游客信息",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "u-top-tips": "/node-modules/uview-ui/components/u-top-tips/u-top-tips"
+  }
 }

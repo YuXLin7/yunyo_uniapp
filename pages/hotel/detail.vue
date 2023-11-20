@@ -20,7 +20,9 @@
 
 			<!-- 商品简介 -->
 			<view class="meta">
-				<view class="price"><text style="font-size: 25px;">{{ hotelInfo.name }}</text></view>
+				<view class="price">
+					<text style="font-size: 25px;">{{ hotelInfo.name }}</text>
+				</view>
 			</view>
 
 			<!-- 操作面板 -->
@@ -54,15 +56,28 @@
 			<!-- 房型列表 -->
 			<view class="list">
 				<text hover-class="none" class="item arrow">房型</text>
-				<navigator :url="'./room?id=' + item.id" hover-class="none" class="item arrow" v-for="item in roomList" :key="item">
+				<!-- <navigator :url="'./room?id=' + item.id" hover-class="none" class="item arrow" v-for="item in roomList" :key="item">
 					{{ item.name }}
-					<text class="price">
-						<text style="font-size: 13px;">￥</text>
-						{{ item.price }}
-					</text>
+					<text class="price">{{ item.price }}</text>
 					<button size="mini">预定</button>
-				</navigator>
+				</navigator> -->
+				<view hover-class="none" class="item arrow" v-for="item in roomList" :key="item">
+					{{ item.name }}
+					<text class="price">{{ item.price }}</text>
+					<button size="mini" @click="sendData(item.id, item.price)">预定</button>
+				</view>
 			</view>
+
+			<!-- 评论 -->
+			<navigator url="./comment" class="list">
+				<text class="item">酒店评价</text>
+				<view class="item common" v-for="item in 2" :key="item">
+					<view class="context">
+						这家酒店也就那样
+						<text class="time">2023-11-17</text>
+					</view>
+				</view>
+			</navigator>
 		</view>
 	</view>
 </template>
@@ -88,7 +103,18 @@ export default {
 	},
 	methods: {
 		swiperChange(e) {
-			this.currentIndex = e.detail.current
+			this.currentIndex = e.detail.current;
+		},
+		sendData(id, price) {
+			const data = {
+				hotelId: this.hotelInfo.id,
+				hotelName: this.hotelInfo.name,
+				roomId: id,
+				price: price
+			}
+			uni.navigateTo({
+				url: `./room?data=${encodeURIComponent(JSON.stringify(data))}`
+			});
 		}
 	}
 };
@@ -146,6 +172,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
+
 			text {
 				margin: 10rpx 10rpx;
 			}
@@ -218,6 +245,11 @@ export default {
 				position: absolute;
 				right: 70px;
 				color: red;
+
+				&::before {
+					content: '￥';
+					font-size: 80%;
+				}
 			}
 			button {
 				width: 60px;
@@ -227,6 +259,19 @@ export default {
 				top: 25%;
 				background-color: #ff7d25;
 				color: white;
+			}
+		}
+		.common {
+			font-size: 13px;
+			.context {
+				width: 195px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				.time {
+					position: absolute;
+					right: 0;
+				}
 			}
 		}
 	}
