@@ -1,0 +1,58 @@
+<template>
+	<view v-if="id == 1">
+		<image src="../../static/gzt.png" class="img"></image>
+		<view class="box">
+			<view class="title">广州塔</view>
+			<view class="text">广州塔是一座位于中国广东省广州市海珠区赤岗塔附近的高塔，也被称为广州新电视塔或小蛮腰。它于2010年正式对外开放，总高度为600米，其中主塔体高450米，天线桅杆高150米。它是国家AAAA级旅游景区，世界第三、中国第一高塔。广州塔集都市观光、高空游乐、时尚餐饮、婚庆会展、影视娱乐、环保科普、文化教育、购物休闲等多种功能于一体 。</view>
+		</view>
+	</view>
+	<view v-else-if="id == 2">
+		<image src="../../static/bwg.png" class="img"></image>
+		<view class="box">
+			<view class="title">广东省博物馆</view>
+			<view class="text">广东省博物馆位于广州市天河区珠江新城中心区南部，1957年开始筹建，1959年正式开放。广东省博物馆新馆于2004年12月奠基开工，2010年建成，总占地面积6.7万平方米，是广东省的省级综合博物馆。广东省博物馆宝盒形状的外观十分显眼,主要展示广东的历史文化、民风民俗、艺术和自然。展馆共分为历史馆、自然馆、艺术馆和临展馆四大部分。常设展览有广东历史文化陈列、广东省自然资源展览、潮州木雕艺术展览、馆藏历代陶瓷展览和端砚艺术展览。馆内“岭南画派”书画藏品十分丰富，比较珍贵的展品还有自然标本中的“须鲸骨骼”、“巨型孔雀石”和重逾五吨的“信宜玉石”等，技艺精湛的潮州木雕作品也令人惊艳。参观前可以先看看大厅大屏幕，那里会有志愿者免费讲解计划，听着讲解参观博物馆会有不同的收获。</view>
+		</view>
+	</view>
+	<view v-else-if="id == 3">
+		<image src="../../static/bys.png" class="img"></image>
+		<view class="box">
+			<view class="title">白云山</view>
+			<view class="text">白云山，位于广东省广州市白云区，为南粤名山之一，自古就有“羊城第一秀”之称。山体相当宽阔，由30多座山峰组成，为广东最高峰九连山的支脉。面积20.98平方公里，主峰摩星岭高382米。白云山景色秀丽，自古以来就是广州有名的风景胜地。如“蒲涧濂泉”、“白云晚望”、“景泰僧归”等，均被列入古代“羊城八景”。20世纪60年代和80年代，白云山分别以“白云松涛”和“云山锦秀”胜景两度被评为“羊城新八景”之一。改革开放以后，党和国家多位领导人及国际友人也都曾在此观光并题名，为白云山风景区留下了不少墨宝。</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				id: 0
+			}
+		},
+		onLoad:function(options){
+			this.id = options.id
+		}
+	}
+</script>
+
+<style>
+	.img {
+		height: 428rpx;
+		width: 100%;
+	}
+
+	.box {
+		padding: 0 30rpx;
+		margin-bottom: 20px;
+	}
+	.box title {
+		font: 700 32rpx/30rpx '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
+		color: #333;
+		margin: 20rpx 0;
+	}
+	
+	.box text {
+		font: 400 20rpx/30rpx 'Arial Normal', 'Arial', sans-serif;
+		color: #333;
+	}
+</style>

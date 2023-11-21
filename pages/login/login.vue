@@ -7,13 +7,13 @@
 				<text style="font-size: 15px; margin: auto 0;">账号：</text>
 				<!-- <input v-model="username" type="number" placeholder="请输入您的账号" /> -->
 				<!-- <u-input v-model="username" type="number" placeholder="请输入您的账号"></u-input> -->
-				<uni-easyinput v-model="username" border-color="#28bb9c" placeholder="请输入您的账号"></uni-easyinput>
+				<uni-easyinput v-model="username" placeholder="请输入您的账号"></uni-easyinput>
 			</view>
 			<view class="password">
 				<text style="font-size: 15px; margin: auto 0;">密码：</text>
 				<!-- <input v-model="password" password type="text" placeholder="请输入您的密码"/> -->
 				<!-- <u-input v-model="password" type="password" placeholder="请输入您的密码"></u-input> -->
-				<uni-easyinput class="inp" type="password" v-model="password" placeholder="请输入您的密码"></uni-easyinput>
+				<uni-easyinput type="password" v-model="password" placeholder="请输入您的密码"></uni-easyinput>
 			</view>
 			<button class="button phone" @click="userLogin">登 录</button>
 			<view class="extra">

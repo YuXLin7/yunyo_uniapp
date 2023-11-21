@@ -81,7 +81,10 @@ page {
 }
 .list image {
   height: 200rpx;
+  width: 200rpx;
   margin-left: -20rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .list button {
   position: absolute;

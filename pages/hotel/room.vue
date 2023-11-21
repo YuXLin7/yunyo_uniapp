@@ -49,7 +49,7 @@
 			<view class="lis">
 				<view class="useDate">
 					<text>入住日期</text>
-					<button size="mini" @click="show = true">选择日期</button>
+					<button class="date" size="mini" @click="show = true">选择日期</button>
 					<view>
 						<u-calendar
 							v-model="show"
@@ -82,15 +82,15 @@
 					位，用于入住身份验证
 				</text>
 				<view class="visitors">
-					<u-radio-group v-model="value" @change="radioGroupChange">
-						<u-radio v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">{{ item.name }}</u-radio>
-						<u-button class="more" shape="circle" size="mini">更多</u-button>
-					</u-radio-group>
+					<view class="phone">
+						<text style="font-size: 18px; margin: auto 0;">联系手机：</text>
+						<uni-easyinput v-model="vPhone" placeholder="请输入联系手机"></uni-easyinput>
+					</view>
 					<view class="info" v-for="(item, index) in num" :key="index">
-						<u-button class="clean" shape="circle" size="mini" style="width: 10px;">✖</u-button>
-						<view class="name">名字</view>
-						<view class="phone">手机号 18923043691</view>
-						<u-button class="edit" shape="circle" size="mini">编辑</u-button>
+						<view class="name">
+							<text style="font-size: 18px; margin: auto 0;">住客姓名：</text>
+							<uni-easyinput v-model="vName" placeholder="每间只填1人, 姓名不可重复"></uni-easyinput>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -114,6 +114,8 @@ export default {
 			num: 1,
 			price: 0,
 			show: false,
+			show3: false,
+			show4: false,
 			result: '请选择日期',
 			startText: '住店',
 			endText: '离店',
@@ -123,31 +125,29 @@ export default {
 			btnType: 'success',
 			today: '',
 			maxDay: '',
-			value: 'orange',
-			list: [
-				{
-					name: 'apple',
-					disabled: false
-				},
-				{
-					name: 'banner',
-					disabled: false
-				},
-				{
-					name: 'orange',
-					disabled: false
-				}
-			]
+			list: [],
+			vName: '',
+			vPhone: '',
+			selectedItem: '',
+			selectedList: []
 		};
 	},
 	onLoad: async function(options) {
 		const data = JSON.parse(decodeURIComponent(options.data));
 		this.hotelId = data.hotelId;
 		this.hotelName = data.hotelName;
-		this.price = data.price
+		this.price = data.price;
 
 		await useri.getRoomById(data.roomId).then(resp => {
 			this.roomInfo = resp.data;
+		});
+		await useri.getAllVisitorByUserId(this.userInfo.id).then(resp => {
+			resp.data.forEach(item => {
+				this.selectedList.push({ label: item.name, value: item.phone });
+			});
+		});
+		await useri.getVisitorByUserId(1, 3, this.userInfo.id).then(resp => {
+			this.list = resp.data.records;
 		});
 
 		const today = new Date();
@@ -194,6 +194,25 @@ export default {
 						duration: '2000'
 					});
 				}
+			});
+		},
+		radioChange(name, phone) {
+			this.vName = name;
+			this.vPhone = phone;
+		},
+		clearSelection() {
+			this.selectedItem = '';
+			this.vName = '';
+			this.vPhone = '';
+		},
+		async more() {
+			this.show3 = true;
+		},
+		selectVisitor(e) {
+			e.map((val, index) => {
+				this.selectedItem = val.label;
+				this.vName = val.label;
+				this.vPhone = val.value;
 			});
 		}
 	},
@@ -319,6 +338,7 @@ export default {
 		border-radius: 10rpx;
 
 		.useDate {
+			position: relative;
 			margin: 30rpx 0;
 			display: flex;
 			font-size: 15px;
@@ -326,11 +346,13 @@ export default {
 				width: auto;
 				margin: auto 0;
 			}
-			button {
+			.date {
+				position: absolute;
 				width: auto;
 				color: white;
 				background-color: #28bb9c;
-				margin-right: 40rpx;
+				right: 80rpx;
+				top: -8rpx;
 			}
 		}
 
@@ -347,7 +369,6 @@ export default {
 	}
 
 	.visitorList {
-		position: relative;
 		margin: 20rpx 10px;
 		padding: 20rpx 40rpx 5rpx 40rpx;
 		background-color: #e5e5e5;
@@ -355,37 +376,19 @@ export default {
 		border-radius: 10rpx;
 
 		.visitors {
-			position: relative;
 			margin: 20rpx 0;
-			.more {
-				position: absolute;
-				right: 30rpx;
+			.phone {
+				display: flex;
+				margin: 0 50rpx 0 20rpx;
 			}
 			.info {
-				position: relative;
 				margin: 20rpx 0;
 				width: 600rpx;
 				height: 100rpx;
 				border-top: 1px solid #bfbfbf;
-				.clean {
-					position: absolute;
-					left: 0;
-					top: 30%;
-				}
 				.name {
-					position: absolute;
-					top: 10rpx;
-					left: 100rpx;
-				}
-				.phone {
-					position: absolute;
-					bottom: 0;
-					left: 100rpx;
-				}
-				.edit {
-					position: absolute;
-					right: 0;
-					top: 30%;
+					display: flex;
+					margin: 20rpx 20rpx;
 				}
 			}
 		}

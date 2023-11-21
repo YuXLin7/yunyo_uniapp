@@ -70,6 +70,11 @@ export default {
 							type: 'success',
 							duration: '2000'
 						});
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/me/index'
+							});
+						}, 2000);
 					}
 				});
 			} else {
@@ -80,6 +85,11 @@ export default {
 							type: 'success',
 							duration: '2000'
 						});
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/me/index'
+							});
+						}, 2000);
 					}
 				});
 			}

@@ -3,9 +3,10 @@
 		<custom-navbar @safe-height="getHeight"></custom-navbar>
 		<view :style="{ marginTop: height + 'px' }">
 			<view class="head">
-				<image :src="userInfo.headUrl" mode="heightFix"></image>
+				<image :src="userInfo.headUrl"></image>
 				<text id="nickname">{{ userInfo.nickname }}</text>
-				<text id="phone">{{ userInfo.phone }}</text>
+				<text id="phone" v-if="userInfo.phone.length == null">暂未填入手机号</text>
+				<text id="phone" v-else>{{ userInfo.phone }}</text>
 			</view>
 
 			<!-- 我的订单 -->
@@ -19,8 +20,8 @@
 				</view>
 				<view class="section">
 					<navigator url="../order/order?type=1" hover-class="none" class="vertical-layout">
-					  <image src="../../static/payment.png" mode="heightFix"></image>
-					  待付款
+						<image src="../../static/payment.png" mode="heightFix"></image>
+						待付款
 					</navigator>
 					<navigator url="../order/order?type=2" hover-class="none" class="vertical-layout">
 						<image src="../../static/use.png" mode="heightFix"></image>
@@ -30,10 +31,10 @@
 						<image src="../../static/comment.png" mode="heightFix"></image>
 						待评论
 					</navigator>
-					<navigator url="../order/order" hover-class="none" class="vertical-layout">
+					<view hover-class="none" class="vertical-layout">
 						<image src="../../static/aftersales.png" mode="heightFix"></image>
 						售后
-					</navigator>
+					</view>
 				</view>
 			</view>
 
@@ -63,7 +64,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
 	data() {
 		return {
-			height: 0,
+			height: 0
 		};
 	},
 	components: {
@@ -93,8 +94,8 @@ export default {
 				success: res => {
 					if (res.confirm) {
 						// 清理用户信息
-						uni.setStorageSync('token', null)
-						this.userLogoutAction()
+						uni.setStorageSync('token', null);
+						this.userLogoutAction();
 						// 返回上一页
 						// uni.navigateBack();
 						uni.navigateTo({
@@ -114,21 +115,26 @@ page {
 }
 
 .head {
+	position: relative;
 	display: flex;
 	image {
-		height: 70px;
+		height: 100px;
+		width: 100px;
 		margin: 10px 0 10px 20px;
 		border-radius: 10rpx;
 	}
-}
-
-#nickname {
-	margin: 15px 0 0 10px;
-	font-size: 20px;
-}
-#phone {
-	margin-top: 50px;
-	margin-left: -100px;
+	#nickname {
+		position: absolute;
+		font-size: 25px;
+		top: 60rpx;
+		left: 280rpx;
+	}
+	#phone {
+		position: absolute;
+		font-size: 20px;
+		top: 150rpx;
+		left: 280rpx;
+	}
 }
 
 .viewport {

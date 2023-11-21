@@ -33,7 +33,7 @@
 
 		<view>
 			<navigator :url="'./detail?id=' + item.id" hover-class="none" class="list" v-for="item in list" :key="item">
-				<image src="../../static/logo.png" mode="heightFix"></image>
+				<image :src="item.headUrl"></image>
 				<view class="info">
 					<text style="font-size: 15px;">{{ item.name }}</text>
 					<text style="font-size: 12px;">{{ item.telephone }}</text>
@@ -41,10 +41,9 @@
 				</view>
 			</navigator>
 		</view>
+		<view v-if="isBottom"><view style="width: 370rpx; margin: 0 auto;">———— 到底啦！————</view></view>
 
-		<view class="u-demo-area" v-if="list.length == 0" style="height: 400px;">
-			<u-empty mode="search" text="附件暂无景点,请选择其他地方吧!"></u-empty>
-		</view>
+		<view class="u-demo-area" v-if="list.length == 0" style="height: 400px;"><u-empty mode="search" text="附件暂无景点,请选择其他地方吧!"></u-empty></view>
 	</view>
 </template>
 
@@ -54,28 +53,44 @@ import { useri } from '../../util/user.js';
 export default {
 	data() {
 		return {
+			page: 1,
+			size: 10,
+			total: 100,
+			isBottom: false,
 			background: {
 				backgroundColor: '#28bb9c'
 			},
 			location: '未获取当前位置',
 			list: [],
-			search: {}
+			search: {},
+			count: 4,
+			value: 2
 		};
 	},
 	onLoad: async function() {
-		await useri.getAttractionPage(1, 3, null).then(resp => {
+		await useri.getAttractionPage(this.page, this.total, null).then(resp => {
 			this.list = resp.data.records;
 		});
 	},
+	async onReachBottom() {
+		if (this.total > this.page * this.size) {
+			this.page++;
+			await useri.getAttractionPage(this.page, this.total, null).then(resp => {
+				this.list = this.list.concat(resp.data.records);
+			});
+		} else {
+			this.isBottom = true;
+		}
+	},
 	methods: {
 		async searchAttraction() {
-			await useri.getAttractionPage(1, 3, this.search).then(resp => {
+			await useri.getAttractionPage(this.page, this.total, this.search).then(resp => {
 				this.list = resp.data.records;
 			});
 		},
 		async getAttraction(type) {
-			this.search.type = type
-			await useri.getAttractionPage(1, 3, this.search).then(resp => {
+			this.search.type = type;
+			await useri.getAttractionPage(this.page, this.total, this.search).then(resp => {
 				this.list = resp.data.records;
 			});
 		},
@@ -151,7 +166,9 @@ page {
 
 	image {
 		height: 200rpx;
+		width: 200rpx;
 		margin-left: -20rpx;
+		border-radius: 10rpx;
 	}
 
 	button {
