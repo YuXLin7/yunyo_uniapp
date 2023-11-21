@@ -170,7 +170,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
@@ -180,7 +179,11 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
       type: 0,
       isEmpty: false,
       list: [],
-      slot: false };
+      slot: false,
+      page: 1,
+      size: 10,
+      total: 100,
+      isBottom: false };
 
   },
   methods: {
@@ -191,6 +194,8 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
         return '待使用';
       } else if (state == 3) {
         return '待评论';
+      } else if (state == 4) {
+        return '已完成';
       }
     } },
 
@@ -201,36 +206,51 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
               wx.setNavigationBarTitle({
                 title: '待付款' });_context.next = 5;return (
 
-                _user.useri.getOrder(1, 3, { state: 1 }).then(function (resp) {
+                _user.useri.getOrder(this.page, this.size, { state: 1 }).then(function (resp) {
                   _this.list = resp.data.records;
+                  _this.total = resp.data.total;
                 }));case 5:
               this.pageUrl = './payment';_context.next = 23;break;case 8:if (!(
               options.type == 2)) {_context.next = 14;break;}
               wx.setNavigationBarTitle({
                 title: '待使用' });_context.next = 12;return (
 
-                _user.useri.getOrder(1, 3, { state: 2 }).then(function (resp) {
+                _user.useri.getOrder(this.page, this.size, { state: 2 }).then(function (resp) {
                   _this.list = resp.data.records;
+                  _this.total = resp.data.total;
                 }));case 12:_context.next = 23;break;case 14:if (!(
               options.type == 3)) {_context.next = 20;break;}
               wx.setNavigationBarTitle({
                 title: '待评论' });_context.next = 18;return (
 
-                _user.useri.getOrder(1, 3, { state: 3 }).then(function (resp) {
+                _user.useri.getOrder(this.page, this.size, { state: 3 }).then(function (resp) {
                   _this.list = resp.data.records;
+                  _this.total = resp.data.total;
                 }));case 18:_context.next = 23;break;case 20:
 
               wx.setNavigationBarTitle({
                 title: '全部订单' });_context.next = 23;return (
 
-                _user.useri.getOrder(1, 3, null).then(function (resp) {
+                _user.useri.getOrder(this.page, this.size, null).then(function (resp) {
                   _this.list = resp.data.records;
+                  _this.total = resp.data.total;
                 }));case 23:
 
 
               if (this.list.length == 0) {
                 this.isEmpty = true;
-              }case 24:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}() };exports.default = _default;
+              }case 24:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+
+  onReachBottom: function onReachBottom() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+              _this2.total > _this2.page * _this2.size)) {_context2.next = 6;break;}
+              _this2.page++;_context2.next = 4;return (
+                _user.useri.getOrder(_this2.page, _this2.size, null).then(function (resp) {
+                  _this2.list = _this2.list.concat(resp.data.records);
+                }));case 4:_context2.next = 7;break;case 6:
+
+              _this2.isBottom = true;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+
+  } };exports.default = _default;
 
 /***/ }),
 

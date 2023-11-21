@@ -67,6 +67,17 @@
 				</view>
 			</view>
 
+			<!-- 评论 -->
+			<navigator :url="'../comment/comment?attractionId=' + attractionId" class="list">
+				<text class="item">酒店评价</text>
+				<view class="item common" v-for="item in commentList" :key="item">
+					<view class="context">
+						{{ item.commentContent }}
+						<text class="time">{{ item.createTime }}</text>
+					</view>
+				</view>
+			</navigator>
+
 			<u-popup v-model="show" mode="bottom" border-radius="14" height="500px">
 				<view style="font-size: 20px; text-align: center; margin: 20rpx 0 0 0;">提交订单</view>
 
@@ -75,7 +86,7 @@
 
 					<view class="useDate">
 						<text>{{ useTime }}</text>
-						<button size="mini" @click="show2 = true">选择日期</button>
+						<button class="date" size="mini" @click="show2 = true">选择日期</button>
 						<view>
 							<u-calendar
 								v-model="show2"
@@ -111,15 +122,35 @@
 						位，其余游客信息无需填写
 					</text>
 					<view class="visitors">
-						<u-radio-group v-model="value" @change="radioGroupChange">
-							<u-radio v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">{{ item.name }}</u-radio>
-							<u-button class="more" shape="circle" size="mini">更多</u-button>
+						<u-radio-group v-model="selectedItem">
+							<u-radio v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled" @change="radioChange(item.name, item.phone)">
+								{{ item.name }}
+							</u-radio>
+							<u-button class="more" shape="circle" size="mini" @click="more">更多</u-button>
+
+							<u-select v-model="show3" :list="selectedList" @confirm="selectVisitor"></u-select>
 						</u-radio-group>
-						<view class="info">
-							<u-button class="clean" shape="circle" size="mini" style="width: 10px;">✖</u-button>
-							<view class="name">名字</view>
-							<view class="phone">手机号 18923043691</view>
-							<u-button class="edit" shape="circle" size="mini">编辑</u-button>
+						<view class="info" v-if="vName.length != 0">
+							<u-button class="clean" shape="circle" size="mini" style="width: 10px;" @click="clearSelection">✖</u-button>
+							<view class="name">{{ vName }}</view>
+							<view class="phone">手机号 {{ vPhone }}</view>
+							<u-button class="edit" shape="circle" size="mini" @click="show4 = true">编辑</u-button>
+
+							<u-popup class="edit_popup" v-model="show4" mode="bottom" border-radius="14" height="500px" closeable="true">
+								<view style="text-align: center; font-size: 20px; margin: 20rpx 0;">编辑游客信息</view>
+								<view class="edit_name">
+									<text style="font-size: 18px; margin: auto 0;">姓名：</text>
+									<uni-easyinput v-model="vName"></uni-easyinput>
+								</view>
+								<view class="edit_phone">
+									<text style="font-size: 18px; margin: auto 0;">手机：</text>
+									<uni-easyinput v-model="vPhone"></uni-easyinput>
+								</view>
+								<view class="add-btn" @click="show4 = false">保存</view>
+								<view class="tip">
+									温馨提示：请您填写出行人真实准确的信息，如存在实名制要求的，还需要您在出游时出具相应证件用于身份验证。您填写的所有信息仅供您在美团购买旅游出行服务/产品所用，美团仅会在履约必要的范围内向您购买的服务/产品的相应商家提供，并且将通过加密等方式存储和保护您录入的身份证件信息。
+								</view>
+							</u-popup>
 						</view>
 					</view>
 				</view>
@@ -132,6 +163,7 @@
 
 <script>
 import { useri } from '../../util/user.js';
+import { api } from '@/util/comment.js';
 import { mapState } from 'vuex';
 
 export default {
@@ -141,30 +173,23 @@ export default {
 			currentIndex: 0,
 			attractionInfo: {},
 			ticketList: {},
-			show: false,
-			name: '',
-			price: 0,
-			ticketId: 0,
-			num: 1,
-			show2: false,
+			show: false, //预定弹窗
+			show2: false, //日期弹窗
+			show3: false, //更多弹窗
+			show4: false, //修改弹窗
+			name: '', //订单名
+			price: 0, //订单价格
+			ticketId: 0, //门票id
+			num: 1, //订单数量
 			useTime: '选择日期',
 			today: '',
 			maxDay: '',
-			value: 'orange',
-			list: [
-				{
-					name: 'apple',
-					disabled: false
-				},
-				{
-					name: 'banner',
-					disabled: false
-				},
-				{
-					name: 'orange',
-					disabled: false
-				}
-			]
+			list: [],
+			vName: '',
+			vPhone: '',
+			selectedItem: '',
+			selectedList: [],
+			commentList: []
 		};
 	},
 	onLoad: async function(options) {
@@ -174,6 +199,14 @@ export default {
 		});
 		await useri.getTicketById(options.id).then(resp => {
 			this.ticketList = resp.data;
+		});
+		await api.getCommentPage(1, 3, { attractionId: options.id }).then(resp => {
+			this.commentList = resp.data.records;
+		});
+		await useri.getAllVisitorByUserId(this.userInfo.id).then(resp => {
+			resp.data.forEach(item => {
+				this.selectedList.push({ label: item.name, value: item.phone });
+			});
 		});
 
 		const today = new Date();
@@ -196,13 +229,16 @@ export default {
 		swiperChange(e) {
 			this.currentIndex = e.detail.current;
 		},
-		addOrder(ticket, price) {
-			this.name = this.attractionInfo.name + '-' + ticket
-			this.price = price
-			this.show = true
+		async addOrder(ticket, price) {
+			await useri.getVisitorByUserId(1, 3, this.userInfo.id).then(resp => {
+				this.list = resp.data.records;
+			});
+			this.name = this.attractionInfo.name + '-' + ticket;
+			this.price = price;
+			this.show = true;
 		},
 		async commit() {
-			this.show = false
+			this.show = false;
 			const data = {
 				userId: this.userInfo.id,
 				goodsType: 1,
@@ -220,7 +256,7 @@ export default {
 						title: '预定成功，请及时付款！',
 						type: 'success',
 						duration: '2000'
-					})
+					});
 				}
 			});
 		},
@@ -230,8 +266,24 @@ export default {
 		valChange(e) {
 			this.num = e.value;
 		},
-		radioGroupChange(e) {
-			console.log(e);
+		radioChange(name, phone) {
+			this.vName = name;
+			this.vPhone = phone;
+		},
+		clearSelection() {
+			this.selectedItem = '';
+			this.vName = '';
+			this.vPhone = '';
+		},
+		async more() {
+			this.show3 = true;
+		},
+		selectVisitor(e) {
+			e.map((val, index) => {
+				this.selectedItem = val.label;
+				this.vName = val.label;
+				this.vPhone = val.value;
+			});
 		}
 	}
 };
@@ -239,6 +291,10 @@ export default {
 
 <style lang="scss">
 .goods {
+	width: 100%;
+	height: 100%;
+	padding-bottom: constant(safe-area-inset-bottom); // 兼容 IOS<11.2
+	padding-bottom: env(safe-area-inset-bottom); // 兼容 IOS>11.2
 	background-color: #fff;
 	.preview {
 		height: 750rpx;
@@ -381,6 +437,19 @@ export default {
 				color: white;
 			}
 		}
+		.common {
+			font-size: 13px;
+			.context {
+				width: 195px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				.time {
+					position: absolute;
+					right: 0;
+				}
+			}
+		}
 	}
 
 	/deep/.u-mode-center-box {
@@ -390,7 +459,7 @@ export default {
 	.lis {
 		margin: 0 10px;
 		padding: 4rpx 40rpx;
-		background-color: #e5e5e5;
+		background-color: #efefef;
 		margin-top: 30rpx;
 		border-radius: 10rpx;
 
@@ -400,17 +469,20 @@ export default {
 		}
 
 		.useDate {
+			position: relative;
 			display: flex;
 			font-size: 15px;
 			text {
 				width: auto;
 				margin: auto 0;
 			}
-			button {
+			.date {
+				position: absolute;
 				width: auto;
 				color: white;
 				background-color: #28bb9c;
-				margin-right: 40rpx;
+				right: 80rpx;
+				top: -8rpx;
 			}
 		}
 
@@ -430,7 +502,7 @@ export default {
 		position: relative;
 		margin: 0 10px;
 		padding: 20rpx 40rpx 5rpx 40rpx;
-		background-color: #e5e5e5;
+		background-color: #efefef;
 		margin-top: 20rpx;
 		border-radius: 10rpx;
 
@@ -466,6 +538,32 @@ export default {
 					position: absolute;
 					right: 0;
 					top: 30%;
+				}
+				.edit_popup {
+					.edit_name {
+						display: flex;
+						margin: 20rpx 20rpx;
+					}
+					.edit_phone {
+						display: flex;
+						margin: 0 20rpx;
+					}
+					.add-btn {
+						height: 80rpx;
+						text-align: center;
+						line-height: 80rpx;
+						margin: 30rpx 20rpx;
+						color: #fff;
+						border-radius: 80rpx;
+						font-size: 30rpx;
+						background-color: #27ba9b;
+					}
+					.tip {
+						width: 90%;
+						height: 10%;
+						margin: 20rpx auto;
+						color: #afafaf;
+					}
 				}
 			}
 		}

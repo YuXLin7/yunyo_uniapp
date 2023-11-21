@@ -1,0 +1,19 @@
+
+.img {
+	height: 428rpx;
+	width: 100%;
+}
+.box {
+	padding: 0 30rpx;
+	margin-bottom: 20px;
+}
+.box title {
+	font: 700 32rpx/30rpx '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
+	color: #333;
+	margin: 20rpx 0;
+}
+.box text {
+	font: 400 20rpx/30rpx 'Arial Normal', 'Arial', sans-serif;
+	color: #333;
+}
+

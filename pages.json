@@ -134,10 +134,28 @@
             
         }
         ,{
-            "path" : "pages/hotel/comment",
+            "path" : "pages/comment/comment",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "全部评价",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/comment/addComment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

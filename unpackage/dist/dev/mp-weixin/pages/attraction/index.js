@@ -190,38 +190,53 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
   data: function data() {
     return {
+      page: 1,
+      size: 10,
+      total: 100,
+      isBottom: false,
       background: {
         backgroundColor: '#28bb9c' },
 
       location: '未获取当前位置',
       list: [],
-      search: {} };
+      search: {},
+      count: 4,
+      value: 2 };
 
   },
   onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                _user.useri.getAttractionPage(1, 3, null).then(function (resp) {
+                _user.useri.getAttractionPage(this.page, this.total, null).then(function (resp) {
                   _this.list = resp.data.records;
-                }));case 2:case "end":return _context.stop();}}}, _callee);}));function onLoad() {return _onLoad.apply(this, arguments);}return onLoad;}(),
+                }));case 2:case "end":return _context.stop();}}}, _callee, this);}));function onLoad() {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
+  onReachBottom: function onReachBottom() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+              _this2.total > _this2.page * _this2.size)) {_context2.next = 6;break;}
+              _this2.page++;_context2.next = 4;return (
+                _user.useri.getAttractionPage(_this2.page, _this2.total, null).then(function (resp) {
+                  _this2.list = _this2.list.concat(resp.data.records);
+                }));case 4:_context2.next = 7;break;case 6:
+
+              _this2.isBottom = true;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+
+  },
   methods: {
-    searchAttraction: function searchAttraction() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _user.useri.getAttractionPage(1, 3, _this2.search).then(function (resp) {
-                    _this2.list = resp.data.records;
-                  }));case 2:case "end":return _context2.stop();}}}, _callee2);}))();
-    },
-    getAttraction: function getAttraction(type) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                _this3.search.type = type;_context3.next = 3;return (
-                  _user.useri.getAttractionPage(1, 3, _this3.search).then(function (resp) {
+    searchAttraction: function searchAttraction() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _user.useri.getAttractionPage(_this3.page, _this3.total, _this3.search).then(function (resp) {
                     _this3.list = resp.data.records;
-                  }));case 3:case "end":return _context3.stop();}}}, _callee3);}))();
+                  }));case 2:case "end":return _context3.stop();}}}, _callee3);}))();
     },
-    getLocation: function getLocation() {var _this4 = this;
+    getAttraction: function getAttraction(type) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                _this4.search.type = type;_context4.next = 3;return (
+                  _user.useri.getAttractionPage(_this4.page, _this4.total, _this4.search).then(function (resp) {
+                    _this4.list = resp.data.records;
+                  }));case 3:case "end":return _context4.stop();}}}, _callee4);}))();
+    },
+    getLocation: function getLocation() {var _this5 = this;
       uni.getLocation({
         type: 'gcj02', // 坐标系类型
         success: function success(res) {
@@ -232,11 +247,11 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
             latitude: latitude,
             longitude: longitude,
             success: function success(res) {
-              _this4.location = res.address.split('市')[1];
-              _this4.search.address = res.address.substring(6, 9);
-              console.log(_this4.search);
-              _user.useri.getAttractionPage(1, 3, _this4.search).then(function (resp) {
-                _this4.list = resp.data.records;
+              _this5.location = res.address.split('市')[1];
+              _this5.search.address = res.address.substring(6, 9);
+              console.log(_this5.search);
+              _user.useri.getAttractionPage(1, 3, _this5.search).then(function (resp) {
+                _this5.list = resp.data.records;
               });
             } });
 

@@ -102,6 +102,7 @@ var components = {
   uNumberBox: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-number-box/u-number-box */ "node-modules/uview-ui/components/u-number-box/u-number-box").then(__webpack_require__.bind(null, /*! uview-ui/components/u-number-box/u-number-box.vue */ 297))
   },
+<<<<<<< HEAD
   uRadioGroup: function() {
     return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 304))
   },
@@ -110,6 +111,10 @@ var components = {
   },
   uButton: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 319))
+=======
+  uniEasyinput: function() {
+    return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput */ "node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput.vue */ 241))
+>>>>>>> ljd
   }
 }
 var render = function() {
@@ -270,6 +275,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
       num: 1,
       price: 0,
       show: false,
+      show3: false,
+      show4: false,
       result: '请选择日期',
       startText: '住店',
       endText: '离店',
@@ -279,21 +286,11 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
       btnType: 'success',
       today: '',
       maxDay: '',
-      value: 'orange',
-      list: [
-      {
-        name: 'apple',
-        disabled: false },
-
-      {
-        name: 'banner',
-        disabled: false },
-
-      {
-        name: 'orange',
-        disabled: false }] };
-
-
+      list: [],
+      vName: '',
+      vPhone: '',
+      selectedItem: '',
+      selectedList: [] };
 
   },
   onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;var data, today, year, month, day, maxDate, maxYear, maxMonth, maxDay;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
@@ -304,7 +301,15 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
 
                 _user.useri.getRoomById(data.roomId).then(function (resp) {
                   _this.roomInfo = resp.data;
-                }));case 6:
+                }));case 6:_context.next = 8;return (
+                _user.useri.getAllVisitorByUserId(this.userInfo.id).then(function (resp) {
+                  resp.data.forEach(function (item) {
+                    _this.selectedList.push({ label: item.name, value: item.phone });
+                  });
+                }));case 8:_context.next = 10;return (
+                _user.useri.getVisitorByUserId(1, 3, this.userInfo.id).then(function (resp) {
+                  _this.list = resp.data.records;
+                }));case 10:
 
               today = new Date();
               year = today.getFullYear();
@@ -317,7 +322,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
               maxYear = maxDate.getFullYear();
               maxMonth = maxDate.getMonth() + 1;
               maxDay = maxDate.getDate();
-              this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;case 17:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+              this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;case 21:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
   methods: {
     swiperChange: function swiperChange(e) {
@@ -351,6 +356,25 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
 
                     }
                   }));case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+    radioChange: function radioChange(name, phone) {
+      this.vName = name;
+      this.vPhone = phone;
+    },
+    clearSelection: function clearSelection() {
+      this.selectedItem = '';
+      this.vName = '';
+      this.vPhone = '';
+    },
+    more: function more() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                _this3.show3 = true;case 1:case "end":return _context3.stop();}}}, _callee3);}))();
+    },
+    selectVisitor: function selectVisitor(e) {var _this4 = this;
+      e.map(function (val, index) {
+        _this4.selectedItem = val.label;
+        _this4.vName = val.label;
+        _this4.vPhone = val.value;
+      });
     } },
 
   computed: _objectSpread(_objectSpread({},

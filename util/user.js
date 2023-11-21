@@ -79,9 +79,19 @@ export const useri = {
 		return uni.$http.post("/travel/order/addOrder", data)
 	},
 	
+	//修改订单信息
+	updateOrder: (data) => {
+		return uni.$http.post("/travel/order/updateOrder", data)
+	},
+	
 	//根据用户id获取游客信息
 	getAllVisitorByUserId: (data) => {
 		return uni.$http.get("/travel/visitor/selectAllVisitorByUserId/" + data)
+	},
+	
+	//
+	getVisitorByUserId: (page, limit, data) => {
+		return uni.$http.get("/travel/visitor/" + page + "/" + limit + "/" + data)
 	},
 	
 	//新增游客信息
@@ -89,7 +99,7 @@ export const useri = {
 		return uni.$http.post("/travel/visitor/addVisitor", data)
 	},
 	
-	//新增游客信息
+	//修改游客信息
 	updateVisitor: (data) => {
 		return uni.$http.post("/travel/visitor/updateVisitor", data)
 	},

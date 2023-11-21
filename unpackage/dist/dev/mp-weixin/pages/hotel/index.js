@@ -167,11 +167,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
   data: function data() {
     return {
+      page: 1,
+      size: 10,
+      total: 100,
+      isBottom: false,
       background: {
         backgroundColor: '#28bb9c' },
 
@@ -181,17 +186,28 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
 
   },
   onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                _user.useri.getHotelPage(1, 3, null).then(function (resp) {
+                _user.useri.getHotelPage(this.page, this.total, null).then(function (resp) {
                   _this.list = resp.data.records;
-                }));case 2:case "end":return _context.stop();}}}, _callee);}));function onLoad() {return _onLoad.apply(this, arguments);}return onLoad;}(),
+                  console.log(_this.list);
+                }));case 2:case "end":return _context.stop();}}}, _callee, this);}));function onLoad() {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
+  onReachBottom: function onReachBottom() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+              _this2.total > _this2.page * _this2.size)) {_context2.next = 6;break;}
+              _this2.page++;_context2.next = 4;return (
+                _user.useri.getHotelPage(_this2.page, _this2.total, null).then(function (resp) {
+                  _this2.list = _this2.list.concat(resp.data.records);
+                }));case 4:_context2.next = 7;break;case 6:
+
+              _this2.isBottom = true;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+
+  },
   methods: {
-    searchHotel: function searchHotel() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _user.useri.getHotelPage(1, 3, _this2.search).then(function (resp) {
-                    _this2.list = resp.data.records;
-                  }));case 2:case "end":return _context2.stop();}}}, _callee2);}))();
+    searchHotel: function searchHotel() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _user.useri.getHotelPage(1, 3, _this3.search).then(function (resp) {
+                    _this3.list = resp.data.records;
+                  }));case 2:case "end":return _context3.stop();}}}, _callee3);}))();
     },
-    getLocation: function getLocation() {var _this3 = this;
+    getLocation: function getLocation() {var _this4 = this;
       uni.getLocation({
         type: 'gcj02', // 坐标系类型
         success: function success(res) {
@@ -202,12 +218,12 @@ var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopR
             latitude: latitude,
             longitude: longitude,
             success: function success(res) {
-              _this3.location = res.address.substring(6, 8) + ', ' + res.name + '附近';
-              _this3.search.address = res.address.substring(6, 9);
-              console.log(_this3.search);
-              _user.useri.getHotelPage(1, 3, _this3.search).then(function (resp) {
-                _this3.list = resp.data.records;
-                console.log(_this3.list);
+              _this4.location = res.address.substring(6, 8) + ', ' + res.name + '附近';
+              _this4.search.address = res.address.substring(6, 9);
+              console.log(_this4.search);
+              _user.useri.getHotelPage(1, 3, _this4.search).then(function (resp) {
+                _this4.list = resp.data.records;
+                console.log(_this4.list);
               });
             } });
 

@@ -28,23 +28,29 @@ page {
   background-color: #f4f4f4;
 }
 .head {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
 .head image {
-  height: 70px;
+  height: 100px;
+  width: 100px;
   margin: 10px 0 10px 20px;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
 }
-#nickname {
-  margin: 15px 0 0 10px;
-  font-size: 20px;
+.head #nickname {
+  position: absolute;
+  font-size: 25px;
+  top: 60rpx;
+  left: 280rpx;
 }
-#phone {
-  margin-top: 50px;
-  margin-left: -100px;
+.head #phone {
+  position: absolute;
+  font-size: 20px;
+  top: 150rpx;
+  left: 280rpx;
 }
 .viewport {
   padding: 20rpx;

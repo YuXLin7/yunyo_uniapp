@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
 
 
 
@@ -206,6 +206,11 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
                         type: 'success',
                         duration: '2000' });
 
+                      setTimeout(function () {
+                        uni.reLaunch({
+                          url: '/pages/me/index' });
+
+                      }, 2000);
                     }
                   }));case 4:_context2.next = 8;break;case 6:_context2.next = 8;return (
 
@@ -216,10 +221,16 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
                         type: 'success',
                         duration: '2000' });
 
+                      setTimeout(function () {
+                        uni.reLaunch({
+                          url: '/pages/me/index' });
+
+                      }, 2000);
                     }
                   }));case 8:case "end":return _context2.stop();}}}, _callee2);}))();
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

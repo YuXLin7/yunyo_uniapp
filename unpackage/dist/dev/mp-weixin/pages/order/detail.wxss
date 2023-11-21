@@ -137,11 +137,6 @@ page {
   margin-right: 10rpx;
   color: #cf4444;
 }
-.goods .item .prices .price {
-  font-size: 24rpx;
-  color: #999;
-  text-decoration: line-through;
-}
 .goods .item .count {
   position: absolute;
   bottom: 0;
@@ -245,6 +240,8 @@ page {
   font-size: 75%;
 }
 .toolbar .button {
+  position: absolute;
+  right: 30rpx;
   width: 220rpx;
   text-align: center;
   line-height: 72rpx;
@@ -256,5 +253,20 @@ page {
 }
 .toolbar .disabled {
   opacity: 0.6;
+}
+.money {
+  font-size: 80rpx;
+  color: #ff9900;
+  position: relative;
+}
+.money .close {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  line-height: 28rpx;
+  font-size: 28rpx;
+}
+.tips {
+  color: #909399;
 }
 

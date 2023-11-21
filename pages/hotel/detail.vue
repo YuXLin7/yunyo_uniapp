@@ -56,11 +56,6 @@
 			<!-- 房型列表 -->
 			<view class="list">
 				<text hover-class="none" class="item arrow">房型</text>
-				<!-- <navigator :url="'./room?id=' + item.id" hover-class="none" class="item arrow" v-for="item in roomList" :key="item">
-					{{ item.name }}
-					<text class="price">{{ item.price }}</text>
-					<button size="mini">预定</button>
-				</navigator> -->
 				<view hover-class="none" class="item arrow" v-for="item in roomList" :key="item">
 					{{ item.name }}
 					<text class="price">{{ item.price }}</text>
@@ -69,12 +64,12 @@
 			</view>
 
 			<!-- 评论 -->
-			<navigator url="./comment" class="list">
+			<navigator :url="'../comment/comment?hotelId=' + hotelId" class="list">
 				<text class="item">酒店评价</text>
-				<view class="item common" v-for="item in 2" :key="item">
+				<view class="item common" v-for="item in commentList" :key="item">
 					<view class="context">
-						这家酒店也就那样
-						<text class="time">2023-11-17</text>
+						{{ item.commentContent }}
+						<text class="time">{{ item.createTime }}</text>
 					</view>
 				</view>
 			</navigator>
@@ -84,21 +79,28 @@
 
 <script>
 import { useri } from '../../util/user.js';
+import { api } from '@/util/comment.js';
 
 export default {
 	data() {
 		return {
+			hotelId: 0,
 			currentIndex: 0,
 			hotelInfo: {},
-			roomList: {}
+			roomList: {},
+			commentList: []
 		};
 	},
 	onLoad: async function(options) {
+		this.hotelId = options.id
 		await useri.getHotelById(options.id).then(resp => {
 			this.hotelInfo = resp.data;
 		});
 		await useri.getRoomByHotelId(options.id).then(resp => {
 			this.roomList = resp.data;
+		});
+		await api.getCommentPage(1, 3, {hotelId: options.id}).then(resp => {
+			this.commentList = resp.data.records;
 		});
 	},
 	methods: {
@@ -111,7 +113,7 @@ export default {
 				hotelName: this.hotelInfo.name,
 				roomId: id,
 				price: price
-			}
+			};
 			uni.navigateTo({
 				url: `./room?data=${encodeURIComponent(JSON.stringify(data))}`
 			});
@@ -122,6 +124,10 @@ export default {
 
 <style lang="scss">
 .goods {
+	width: 100%;
+	height: 100%;
+	padding-bottom: constant(safe-area-inset-bottom); // 兼容 IOS<11.2
+	padding-bottom: env(safe-area-inset-bottom); // 兼容 IOS>11.2
 	background-color: #fff;
 	.preview {
 		height: 750rpx;
@@ -202,7 +208,7 @@ export default {
 			}
 		}
 		.label {
-			width: 58px;
+			width: 65px;
 			color: #898b94;
 			margin: 0 16rpx 0 10rpx;
 		}

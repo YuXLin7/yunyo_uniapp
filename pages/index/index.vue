@@ -1,38 +1,75 @@
 <template>
 	<view>
 		<custom-navbar @safe-height="getHeight"></custom-navbar>
-		<view :style="{ marginTop: height + 'px' }">
-			<view class="wrap">
-				<u-waterfall v-model="flowList" ref="uWaterfall">
-					<template v-slot:left="{ leftList }">
-						<view class="demo-warter" v-for="(item, index) in leftList" :key="index">
-							<!-- 微信小程序需要hx2.8.11版本才支持在template中引入其他组件，比如下方的u-lazy-load组件 -->
-							<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
-							<view class="demo-title">{{ item.title }}</view>
-							<view class="demo-price">{{ item.price }}元</view>
-							<view class="demo-tag">
-								<view class="demo-tag-owner">自营</view>
-								<view class="demo-tag-text">放心购</view>
-							</view>
-							<view class="demo-shop">{{ item.shop }}</view>
-							<view class="u-close"><u-icon name="close-circle-fill" color="#fa3534" size="34" @click="remove(item.id)"></u-icon></view>
+
+		<view :style="{ marginTop: height + 'px', display: 'flex', flexDirection: 'column' }">
+			<view class="swiper">
+				<swiper :indicator-dots="true" :autoplay="true" :interval="5000">
+					<swiper-item v-for="(item, index) in swiperItems" :key="index"><image :src="item.image" class="swiper-image" mode="aspectFill"></image></swiper-item>
+				</swiper>
+			</view>
+			<view class="recommend">云游官方推荐景点</view>
+			<view class="row">
+				<view class="col-24">
+					<navigator url="/pages/index/detail?id=1" hover-class="none">
+						<view class="box">
+							<image src="../../static/gzt.png" mode="scaleToFill" class="u47-img"></image>
+							<text class="intro-text u47-intro">广州塔</text>
 						</view>
-					</template>
-					<template v-slot:right="{ rightList }">
-						<view class="demo-warter" v-for="(item, index) in rightList" :key="index">
-							<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
-							<view class="demo-title">{{ item.title }}</view>
-							<view class="demo-price">{{ item.price }}元</view>
-							<view class="demo-tag">
-								<view class="demo-tag-owner">自营</view>
-								<view class="demo-tag-text">放心购</view>
-							</view>
-							<view class="demo-shop">{{ item.shop }}</view>
-							<view class="u-close"><u-icon name="close-circle-fill" color="#fa3534" size="34" @click="remove(item.id)"></u-icon></view>
+					</navigator>
+				</view>
+				<view class="recommend" style="margin: 0 auto; font-size: 20px;">“回首千百，云游四海”</view>
+				<view class="col-12">
+					<navigator url="/pages/index/detail?id=2" hover-class="none">
+						<view class="box">
+							<image src="../../static/bwg.png" mode="scaleToFill" class="u47-img"></image>
+							<text class="intro-text u47-intro">广东省博物馆</text>
 						</view>
-					</template>
-				</u-waterfall>
-				<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="addRandomData"></u-loadmore>
+					</navigator>
+				</view>
+				<view class="col-12">
+					<navigator url="/pages/index/detail?id=3" hover-class="none">
+						<view class="box">
+							<image src="../../static/bys.png" mode="scaleToFill" class="u47-img"></image>
+							<text class="intro-text u47-intro">白云山</text>
+						</view>
+					</navigator>
+				</view>
+			</view>
+			<view class="recommend">大家都在玩</view>
+			<view>
+				<view class="wrap">
+					<u-waterfall v-model="flowList" ref="uWaterfall">
+						<template v-slot:left="{ leftList }">
+							<view class="demo-warter" v-for="(item, index) in leftList" :key="index">
+								<!-- 微信小程序需要hx2.8.11版本才支持在template中引入其他组件，比如下方的u-lazy-load组件 -->
+								<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
+								<view class="demo-title">{{ item.title }}</view>
+								<view class="demo-price">{{ item.price }}元</view>
+								<view class="demo-tag">
+									<view class="demo-tag-owner">自营</view>
+									<view class="demo-tag-text">放心购</view>
+								</view>
+								<view class="demo-shop">{{ item.shop }}</view>
+								<view class="u-close"><u-icon name="close-circle-fill" color="#fa3534" size="34" @click="remove(item.id)"></u-icon></view>
+							</view>
+						</template>
+						<template v-slot:right="{ rightList }">
+							<view class="demo-warter" v-for="(item, index) in rightList" :key="index">
+								<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
+								<view class="demo-title">{{ item.title }}</view>
+								<view class="demo-price">{{ item.price }}元</view>
+								<view class="demo-tag">
+									<view class="demo-tag-owner">自营</view>
+									<view class="demo-tag-text">放心购</view>
+								</view>
+								<view class="demo-shop">{{ item.shop }}</view>
+								<view class="u-close"><u-icon name="close-circle-fill" color="#fa3534" size="34" @click="remove(item.id)"></u-icon></view>
+							</view>
+						</template>
+					</u-waterfall>
+					<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="addRandomData"></u-loadmore>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -48,6 +85,7 @@ export default {
 			height: '',
 			loadStatus: 'loadmore',
 			flowList: [],
+			swiperItems: [{ image: '../../static/advertisement1.png' }, { image: '../../static/advertisement2.png' }, { image: '../../static/advertisement3.png' }],
 			list: [
 				{
 					price: 35,
@@ -163,6 +201,54 @@ page {
 </style>
 
 <style lang="scss" scoped>
+.swiper-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.recommend {
+	font-weight: bold;
+	text-align: center;
+}
+.intro-text {
+	font-weight: 700;
+	color: #ffffff;
+	font-family: '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
+}
+.box {
+	position: relative;
+	height: 350rpx;
+	width: 100%;
+}
+.u47-img {
+	width: 100%;
+	height: 100%;
+	border-radius: 30rpx;
+}
+.u47-intro {
+	font-size: 30rpx;
+	position: absolute;
+	left: 20rpx;
+	bottom: 10rpx;
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.col-12 {
+	flex: 0 0 50%; /* 24份中占12份 */
+	max-width: 50%;
+	box-sizing: border-box;
+	padding: 2px;
+}
+.col-24 {
+	flex: 0 0 100%; /* 24份中占24份 */
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 2px;
+}
+// -------------------------
 .demo-warter {
 	border-radius: 8px;
 	margin: 5px;

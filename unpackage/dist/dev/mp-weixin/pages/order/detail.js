@@ -92,7 +92,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  uKeyboard: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-keyboard/u-keyboard */ "node-modules/uview-ui/components/u-keyboard/u-keyboard").then(__webpack_require__.bind(null, /*! uview-ui/components/u-keyboard/u-keyboard.vue */ 269))
+  },
+  uIcon: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 213))
+  },
+  uMessageInput: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-message-input/u-message-input */ "node-modules/uview-ui/components/u-message-input/u-message-input").then(__webpack_require__.bind(null, /*! uview-ui/components/u-message-input/u-message-input.vue */ 276))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -130,7 +140,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
 
 
 
@@ -173,28 +183,121 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _user = __webpack_require__(/*! ../../util/user.js */ 67);
+var _comment = __webpack_require__(/*! @/util/comment.js */ 148);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
   data: function data() {
     return {
       isPayment: false,
-      info: {} };
+      isComment: false,
+      info: {},
+      show: false,
+      password: '' };
 
   },
-  methods: {},
-  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+  methods: {
+    addComment: function addComment() {
+      if (this.info.hotelId != null) {
+        uni.navigateTo({
+          url: '../comment/addComment?hotelId=' + this.info.hotelId + '&id=' + this.info.orderId });
+
+      }
+      if (this.info.attractionId != null) {
+        uni.navigateTo({
+          url: '../comment/addComment?attractionId=' + this.info.attractionId + '&id=' + this.info.orderId });
+
+      }
+    },
+    onChange: function onChange(val) {
+      if (this.password.length < 6) {
+        this.password += val;
+      }
+      if (this.password.length >= 6) {
+        this.pay();
+      }
+    },
+    onBackspace: function onBackspace(e) {
+      if (this.password.length > 0) {
+        this.password = this.password.substring(0, this.password.length - 1);
+      }
+    },
+    pay: function pay() {var _this = this;
+      uni.showLoading({
+        title: '支付中' });
+
+      if (this.password == '626214') {
+        setTimeout(function () {
+          uni.hideLoading();
+          _this.show = false;
+          uni.showToast({
+            icon: 'success',
+            title: '支付成功' });
+
+          _user.useri.updateOrder({ orderId: _this.info.orderId, state: 3 });
+        }, 2000);
+        setTimeout(function () {
+          uni.reLaunch({
+            url: '/pages/me/index' });
+
+        }, 4000);
+      } else {
+        uni.hideLoading();
+        this.show = false;
+        uni.showToast({
+          icon: 'error',
+          title: '密码错误' });
+
+      }
+    },
+    showPop: function showPop() {var flag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      this.password = '';
+      this.show = flag;
+    } },
+
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this2 = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               if (options.type === '1') {
                 this.isPayment = true;
+              } else if (options.type === '3') {
+                this.isComment = true;
               }_context.next = 3;return (
                 _user.useri.getOrderById(options.id).then(function (resp) {
-                  _this.info = resp.data;
+                  _this2.info = resp.data;
                 }));case 3:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
   computed: {
     getPrice: function getPrice() {
       return this.info.price * this.info.num;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

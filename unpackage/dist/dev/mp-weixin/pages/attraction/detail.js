@@ -113,6 +113,15 @@ var components = {
   },
   uButton: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 319))
+<<<<<<< HEAD
+=======
+  },
+  uSelect: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-select/u-select */ "node-modules/uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! uview-ui/components/u-select/u-select.vue */ 326))
+  },
+  uniEasyinput: function() {
+    return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput */ "node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput.vue */ 241))
+>>>>>>> ljd
   }
 }
 var render = function() {
@@ -122,6 +131,14 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.show2 = true
+    }
+
+    _vm.e1 = function($event) {
+      _vm.show4 = true
+    }
+
+    _vm.e2 = function($event) {
+      _vm.show4 = false
     }
   }
 }
@@ -290,7 +307,39 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _user = __webpack_require__(/*! ../../util/user.js */ 67);
+var _comment = __webpack_require__(/*! @/util/comment.js */ 148);
 var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
@@ -300,30 +349,23 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
       currentIndex: 0,
       attractionInfo: {},
       ticketList: {},
-      show: false,
-      name: '',
-      price: 0,
-      ticketId: 0,
-      num: 1,
-      show2: false,
+      show: false, //预定弹窗
+      show2: false, //日期弹窗
+      show3: false, //更多弹窗
+      show4: false, //修改弹窗
+      name: '', //订单名
+      price: 0, //订单价格
+      ticketId: 0, //门票id
+      num: 1, //订单数量
       useTime: '选择日期',
       today: '',
       maxDay: '',
-      value: 'orange',
-      list: [
-      {
-        name: 'apple',
-        disabled: false },
-
-      {
-        name: 'banner',
-        disabled: false },
-
-      {
-        name: 'orange',
-        disabled: false }] };
-
-
+      list: [],
+      vName: '',
+      vPhone: '',
+      selectedItem: '',
+      selectedList: [],
+      commentList: [] };
 
   },
   onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;var today, year, month, day, maxDate, maxYear, maxMonth, maxDay;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
@@ -333,7 +375,15 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
                 }));case 3:_context.next = 5;return (
                 _user.useri.getTicketById(options.id).then(function (resp) {
                   _this.ticketList = resp.data;
-                }));case 5:
+                }));case 5:_context.next = 7;return (
+                _comment.api.getCommentPage(1, 3, { attractionId: options.id }).then(function (resp) {
+                  _this.commentList = resp.data.records;
+                }));case 7:_context.next = 9;return (
+                _user.useri.getAllVisitorByUserId(this.userInfo.id).then(function (resp) {
+                  resp.data.forEach(function (item) {
+                    _this.selectedList.push({ label: item.name, value: item.phone });
+                  });
+                }));case 9:
 
               today = new Date();
               year = today.getFullYear();
@@ -346,7 +396,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
               maxYear = maxDate.getFullYear();
               maxMonth = maxDate.getMonth() + 1;
               maxDay = maxDate.getDate();
-              this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;case 16:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+              this.maxDay = maxYear + '-' + maxMonth + '-' + maxDay;case 20:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
   computed: _objectSpread({},
   (0, _vuex.mapState)(['userInfo'])),
@@ -355,33 +405,36 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
     swiperChange: function swiperChange(e) {
       this.currentIndex = e.detail.current;
     },
-    addOrder: function addOrder(ticket, price) {
-      this.name = this.attractionInfo.name + '-' + ticket;
-      this.price = price;
-      this.show = true;
+    addOrder: function addOrder(ticket, price) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _user.useri.getVisitorByUserId(1, 3, _this2.userInfo.id).then(function (resp) {
+                    _this2.list = resp.data.records;
+                  }));case 2:
+                _this2.name = _this2.attractionInfo.name + '-' + ticket;
+                _this2.price = price;
+                _this2.show = true;case 5:case "end":return _context2.stop();}}}, _callee2);}))();
     },
-    commit: function commit() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var data;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                _this2.show = false;
+    commit: function commit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var data;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                _this3.show = false;
                 data = {
-                  userId: _this2.userInfo.id,
+                  userId: _this3.userInfo.id,
                   goodsType: 1,
-                  attractionId: _this2.attractionId,
-                  name: _this2.name,
-                  num: _this2.num,
-                  price: _this2.price,
-                  useTime: _this2.useTime + ' 00:00:00',
+                  attractionId: _this3.attractionId,
+                  name: _this3.name,
+                  num: _this3.num,
+                  price: _this3.price,
+                  useTime: _this3.useTime + ' 00:00:00',
                   state: 1 };
 
-                console.log(data);_context2.next = 5;return (
+                console.log(data);_context3.next = 5;return (
                   _user.useri.addOrder(data).then(function (resp) {
                     if (resp.code == 200) {
-                      _this2.$refs.uTips.show({
+                      _this3.$refs.uTips.show({
                         title: '预定成功，请及时付款！',
                         type: 'success',
                         duration: '2000' });
 
                     }
-                  }));case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+                  }));case 5:case "end":return _context3.stop();}}}, _callee3);}))();
     },
     change: function change(e) {
       this.useTime = e.result;
@@ -389,8 +442,24 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
     valChange: function valChange(e) {
       this.num = e.value;
     },
-    radioGroupChange: function radioGroupChange(e) {
-      console.log(e);
+    radioChange: function radioChange(name, phone) {
+      this.vName = name;
+      this.vPhone = phone;
+    },
+    clearSelection: function clearSelection() {
+      this.selectedItem = '';
+      this.vName = '';
+      this.vPhone = '';
+    },
+    more: function more() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                _this4.show3 = true;case 1:case "end":return _context4.stop();}}}, _callee4);}))();
+    },
+    selectVisitor: function selectVisitor(e) {var _this5 = this;
+      e.map(function (val, index) {
+        _this5.selectedItem = val.label;
+        _this5.vName = val.label;
+        _this5.vPhone = val.value;
+      });
     } } };exports.default = _default;
 
 /***/ }),

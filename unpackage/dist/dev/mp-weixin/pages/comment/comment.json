@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "全部评价",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-top-tips": "/node-modules/uview-ui/components/u-top-tips/u-top-tips",
+    "u-row": "/node-modules/uview-ui/components/u-row/u-row",
+    "u-col": "/node-modules/uview-ui/components/u-col/u-col",
+    "u-image": "/node-modules/uview-ui/components/u-image/u-image",
+    "u-rate": "/node-modules/uview-ui/components/u-rate/u-rate",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
+  }
+}

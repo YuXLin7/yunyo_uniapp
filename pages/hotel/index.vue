@@ -11,7 +11,7 @@
 
 		<view>
 			<navigator :url="'./detail?id=' + item.id" hover-class="none" class="list" v-for="item in list" :key="item">
-				<image src="../../static/logo.png" mode="heightFix"></image>
+				<image :src="item.headUrl"></image>
 				<view class="info">
 					<text>{{ item.name }}</text>
 					<text style="font-size: 12px;">{{ item.telephone }}</text>
@@ -19,6 +19,7 @@
 				</view>
 			</navigator>
 		</view>
+		<view v-if="isBottom"><view style="width: 370rpx; margin: 0 auto;">———— 到底啦！————</view></view>
 
 		<view class="u-demo-area" v-if="list.length == 0" style="height: 400px;"><u-empty mode="search" text="附件暂无酒店,请选择其他地方吧!"></u-empty></view>
 	</view>
@@ -30,6 +31,10 @@ import { useri } from '../../util/user.js';
 export default {
 	data() {
 		return {
+			page: 1,
+			size: 10,
+			total: 100,
+			isBottom: false,
 			background: {
 				backgroundColor: '#28bb9c'
 			},
@@ -39,9 +44,20 @@ export default {
 		};
 	},
 	onLoad: async function() {
-		await useri.getHotelPage(1, 3, null).then(resp => {
+		await useri.getHotelPage(this.page, this.total, null).then(resp => {
 			this.list = resp.data.records;
+			console.log(this.list)
 		});
+	},
+	async onReachBottom() {
+		if (this.total > this.page * this.size) {
+			this.page++;
+			await useri.getHotelPage(this.page, this.total, null).then(resp => {
+				this.list = this.list.concat(resp.data.records);
+			});
+		} else {
+			this.isBottom = true;
+		}
 	},
 	methods: {
 		async searchHotel() {
@@ -95,7 +111,9 @@ page {
 
 	image {
 		height: 200rpx;
+		width: 200rpx;
 		margin-left: -20rpx;
+		border-radius: 10rpx;
 	}
 
 	button {

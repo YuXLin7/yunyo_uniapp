@@ -210,28 +210,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-var _user = __webpack_require__(/*! ../../util/user.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+var _user = __webpack_require__(/*! ../../util/user.js */ 67);
+var _comment = __webpack_require__(/*! @/util/comment.js */ 148);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
   data: function data() {
     return {
+      hotelId: 0,
       currentIndex: 0,
       hotelInfo: {},
-      roomList: {} };
+      roomList: {},
+      commentList: [] };
 
   },
-  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(options) {var _this = this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              this.hotelId = options.id;_context.next = 3;return (
                 _user.useri.getHotelById(options.id).then(function (resp) {
                   _this.hotelInfo = resp.data;
-                }));case 2:_context.next = 4;return (
+                }));case 3:_context.next = 5;return (
                 _user.useri.getRoomByHotelId(options.id).then(function (resp) {
                   _this.roomList = resp.data;
-                }));case 4:case "end":return _context.stop();}}}, _callee);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+                }));case 5:_context.next = 7;return (
+                _comment.api.getCommentPage(1, 3, { hotelId: options.id }).then(function (resp) {
+                  _this.commentList = resp.data.records;
+                }));case 7:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
   methods: {
     swiperChange: function swiperChange(e) {

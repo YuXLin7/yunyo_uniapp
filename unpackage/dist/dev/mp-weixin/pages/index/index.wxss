@@ -156,6 +156,44 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* page不能写带scope的style标签中，否则无效 */
 page {
 	background-color: rgb(240, 240, 240);
@@ -187,6 +225,64 @@ page {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.swiper-image.data-v-57280228 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.recommend.data-v-57280228 {
+  font-weight: bold;
+  text-align: center;
+}
+.intro-text.data-v-57280228 {
+  font-weight: 700;
+  color: #ffffff;
+  font-family: '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑', sans-serif;
+}
+.box.data-v-57280228 {
+  position: relative;
+  height: 350rpx;
+  width: 100%;
+}
+.u47-img.data-v-57280228 {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
+}
+.u47-intro.data-v-57280228 {
+  font-size: 30rpx;
+  position: absolute;
+  left: 20rpx;
+  bottom: 10rpx;
+}
+.row.data-v-57280228 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.col-12.data-v-57280228 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+          flex: 0 0 50%;
+  /* 24份中占12份 */
+  max-width: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 2px;
+}
+.col-24.data-v-57280228 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+          flex: 0 0 100%;
+  /* 24份中占24份 */
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 2px;
+}
 .demo-warter.data-v-57280228 {
   -webkit-border-radius: 8px;
           border-radius: 8px;

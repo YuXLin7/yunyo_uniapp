@@ -142,6 +142,7 @@
           border-radius: 10rpx;
 }
 .goods .lis .useDate {
+  position: relative;
   margin: 30rpx 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -152,11 +153,13 @@
   width: auto;
   margin: auto 0;
 }
-.goods .lis .useDate button {
+.goods .lis .useDate .date {
+  position: absolute;
   width: auto;
   color: white;
   background-color: #28bb9c;
-  margin-right: 40rpx;
+  right: 80rpx;
+  top: -8rpx;
 }
 .goods .lis .num {
   font-size: 15px;
@@ -169,7 +172,6 @@
   margin-left: 200rpx;
 }
 .goods .visitorList {
-  position: relative;
   margin: 20rpx 10px;
   padding: 20rpx 40rpx 5rpx 40rpx;
   background-color: #e5e5e5;
@@ -178,39 +180,25 @@
           border-radius: 10rpx;
 }
 .goods .visitorList .visitors {
-  position: relative;
   margin: 20rpx 0;
 }
-.goods .visitorList .visitors .more {
-  position: absolute;
-  right: 30rpx;
+.goods .visitorList .visitors .phone {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin: 0 50rpx 0 20rpx;
 }
 .goods .visitorList .visitors .info {
-  position: relative;
   margin: 20rpx 0;
   width: 600rpx;
   height: 100rpx;
   border-top: 1px solid #bfbfbf;
 }
-.goods .visitorList .visitors .info .clean {
-  position: absolute;
-  left: 0;
-  top: 30%;
-}
 .goods .visitorList .visitors .info .name {
-  position: absolute;
-  top: 10rpx;
-  left: 100rpx;
-}
-.goods .visitorList .visitors .info .phone {
-  position: absolute;
-  bottom: 0;
-  left: 100rpx;
-}
-.goods .visitorList .visitors .info .edit {
-  position: absolute;
-  right: 0;
-  top: 30%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin: 20rpx 20rpx;
 }
 .goods button {
   margin: 0 auto;
