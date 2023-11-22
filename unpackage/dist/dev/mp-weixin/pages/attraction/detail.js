@@ -113,15 +113,12 @@ var components = {
   },
   uButton: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 319))
-<<<<<<< HEAD
-=======
   },
   uSelect: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-select/u-select */ "node-modules/uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! uview-ui/components/u-select/u-select.vue */ 326))
   },
   uniEasyinput: function() {
     return __webpack_require__.e(/*! import() | node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput */ "node-modules/@dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @dcloudio/uni-ui/lib/uni-easyinput/uni-easyinput.vue */ 241))
->>>>>>> ljd
   }
 }
 var render = function() {
@@ -423,7 +420,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function _interopRequireDefault(
                   num: _this3.num,
                   price: _this3.price,
                   useTime: _this3.useTime + ' 00:00:00',
-                  state: 1 };
+                  state: 1,
+                  imageUrl: 'https://yunyo-bucket.oss-cn-guangzhou.aliyuncs.com/%E5%B9%BF%E5%B7%9E%E9%95%BF%E9%9A%86%E6%AC%A2%E4%B9%90%E4%B8%96%E7%95%8C.webp' };
 
                 console.log(data);_context3.next = 5;return (
                   _user.useri.addOrder(data).then(function (resp) {

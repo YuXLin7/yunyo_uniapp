@@ -247,7 +247,8 @@ export default {
 				num: this.num,
 				price: this.price,
 				useTime: this.useTime + ' 00:00:00',
-				state: 1
+				state: 1,
+				imageUrl: 'https://yunyo-bucket.oss-cn-guangzhou.aliyuncs.com/%E5%B9%BF%E5%B7%9E%E9%95%BF%E9%9A%86%E6%AC%A2%E4%B9%90%E4%B8%96%E7%95%8C.webp'
 			};
 			console.log(data);
 			await useri.addOrder(data).then(resp => {

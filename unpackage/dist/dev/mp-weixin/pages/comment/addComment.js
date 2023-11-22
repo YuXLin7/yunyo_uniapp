@@ -21,11 +21,6 @@ createPage(_addComment.default);
   !*** D:/JavaWeb/HBuilderX/HBuilderProjects/yunyo_uniapp/pages/comment/addComment.vue ***!
   \***************************************************************************************/
 /*! no static exports found */
-<<<<<<< HEAD
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js):\nError: ENOENT: no such file or directory, open 'D:\\JavaWeb\\HBuilderX\\HBuilderProjects\\yunyo_uniapp\\pages\\comment\\addComment.vue'");
-=======
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -203,7 +198,7 @@ var _comment = __webpack_require__(/*! @/util/comment.js */ 148);function _inter
           duration: '2000' });
 
         _user.useri.updateOrder({ orderId: _this.orderId, state: 4 });
-        uni.navigateTo({
+        uni.reLaunch({
           url: '../me/index' });
 
       });
@@ -238,7 +233,6 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
     if(false) { var cssReload; }
   
->>>>>>> ljd
 
 /***/ })
 

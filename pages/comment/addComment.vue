@@ -50,7 +50,7 @@ export default {
 					duration: '2000'
 				});
 				useri.updateOrder({ orderId: this.orderId, state: 4 });
-				uni.navigateTo({
+				uni.reLaunch({
 					url: '../me/index'
 				});
 			});

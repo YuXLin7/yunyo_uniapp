@@ -146,8 +146,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CustomNavbar = function CustomNavbar() {__webpack_require__.e(/*! require.ensure | components/CustomNavbar */ "components/CustomNavbar").then((function () {return resolve(__webpack_require__(/*! ../../components/CustomNavbar.vue */ 227));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-<<<<<<< HEAD
-=======
 
 
 
@@ -185,7 +183,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
->>>>>>> ljd
 
 
 

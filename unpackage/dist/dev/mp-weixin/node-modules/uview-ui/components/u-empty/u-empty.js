@@ -1,6 +1,3 @@
-<<<<<<< HEAD:unpackage/dist/dev/mp-weixin/pages/order/payment.js
-Component({})
-=======
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["node-modules/uview-ui/components/u-empty/u-empty"],{
 
 /***/ 248:
@@ -332,4 +329,3 @@ __webpack_require__.r(__webpack_exports__);
     },
     [['node-modules/uview-ui/components/u-empty/u-empty-create-component']]
 ]);
->>>>>>> ljd:unpackage/dist/dev/mp-weixin/node-modules/uview-ui/components/u-empty/u-empty.js
